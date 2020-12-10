@@ -1,0 +1,6 @@
+framework module Pods_CrowdPlayTests {
+  umbrella header "Pods-CrowdPlayTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
