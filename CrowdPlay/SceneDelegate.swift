@@ -26,7 +26,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
     var window: UIWindow?
     
     var loginVC = LoginVC()
-    var homeVC = HomeVC()
+    var addSongVC = AddSongVC()
+    var queueVC = QueueVC()
     
     let navigation = UINavigationController()
     
@@ -59,41 +60,60 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
             
             
             
+            let tabBar = UITabBarController()
+            
+            queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
+            addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
+            
+            let addSongNav = UINavigationController(rootViewController: addSongVC)
+            
+            tabBar.viewControllers = [queueVC, addSongNav]
             
             let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
             
             if accessToken == "" {
+                window.rootViewController = navigation
                 navigation.pushViewController(loginVC, animated: true)
+                print("loginVC")
             }
             else {
-                navigation.pushViewController(homeVC, animated: true)
+                window.rootViewController = tabBar
+                tabBar.selectedIndex = 0
+//                navigation.pushViewController(addSongVC, animated: true)
             }
             
             print(accessToken)
 
             
-            window.rootViewController = navigation
+            
+            
+//            window.rootViewController = navigation
+            
+//            navigation.navigationBar
             
             self.window = window
             window.makeKeyAndVisible()
         }
         
-        guard let _ = (scene as? UIWindowScene) else { return }
+//        guard let _ = (scene as? UIWindowScene) else { return }
     }
     
     
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         guard let url = URLContexts.first?.url else { return }
-        let parameters = homeVC.appRemote.authorizationParameters(from: url)
+        let parameters = addSongVC.appRemote.authorizationParameters(from: url)
         if let code = parameters?["code"] {
-            homeVC.responseTypeCode = code
+            addSongVC.responseTypeCode = code
         } else if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
-            homeVC.accessToken = access_token
+            addSongVC.accessToken = access_token
             UserDefaults.standard.setValue(access_token, forKey: "accessToken")
 //            print(access_token)
         } else if let error_description = parameters?[SPTAppRemoteErrorDescriptionKey] {
             print("No access token error =", error_description)
+
+            window?.rootViewController = navigation
+                
             navigation.pushViewController(loginVC, animated: true)
         }
     }
@@ -103,16 +123,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         //        appRemote.connect()
-        if let accessToken = homeVC.appRemote.connectionParameters.accessToken {
-            homeVC.appRemote.connectionParameters.accessToken = accessToken
+        if let accessToken = addSongVC.appRemote.connectionParameters.accessToken {
+            addSongVC.appRemote.connectionParameters.accessToken = accessToken
             print(accessToken)
             UserDefaults.standard.setValue(accessToken, forKey: "accessToken")
-            homeVC.appRemote.connect()
-        } else if let accessToken = homeVC.accessToken {
-            homeVC.appRemote.connectionParameters.accessToken = accessToken
+            addSongVC.appRemote.connect()
+        } else if let accessToken = addSongVC.accessToken {
+            addSongVC.appRemote.connectionParameters.accessToken = accessToken
 //            print(accessToken)
             UserDefaults.standard.setValue(accessToken, forKey: "accessToken")
-            homeVC.appRemote.connect()
+            addSongVC.appRemote.connect()
         }
         
     }
@@ -120,7 +140,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
-        if homeVC.appRemote.isConnected {
+        if addSongVC.appRemote.isConnected {
             appRemote.disconnect()
         }
     }

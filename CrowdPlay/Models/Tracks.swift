@@ -1,5 +1,5 @@
 //
-//  Tracks.swift
+//  Models.swift
 //  CrowdPlay
 //
 //  Created by Nicholas Kearns on 11/17/20.
@@ -30,15 +30,20 @@ struct Item: Model, Codable {
     let id: String
     let uri: String
     let artists: [Artist]
+    let album: Album
     
-    enum CodingKeys: String, CodingKey {
-        case name
-        case id
-        case uri
-        case artists
-        
-    }
     
+    
+}
+
+struct Album: Model, Codable {
+    let images: [Image]
+}
+
+struct Image: Model, Codable {
+    let height: Int
+    let width: Int
+    let url: URL
 }
 
 struct Artist: Model, Codable {

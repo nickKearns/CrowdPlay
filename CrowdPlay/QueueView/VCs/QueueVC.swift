@@ -1,27 +1,25 @@
 //
-//  HomeVC.swift
+//  QueueVC.swift
 //  CrowdPlay
 //
-//  Created by Nicholas Kearns on 11/17/20.
+//  Created by Nicholas Kearns on 12/11/20.
 //
 
-import UIKit
-import Firebase
-import SnapKit
-import KeychainSwift
-import Alamofire
+import Foundation
 
 
-class HomeVC: UIViewController {
+class QueueVC: UIViewController {
     
     
-    //    let keychain = KeychainSwift()
-    
-    var trackItems: [Item] = [] {
-        didSet {
-            tableView.reloadData()
-        }
+    var trackItems: [Items] = [] {
+        queueTableView.reloadData()
     }
+    
+    let queueTableView: UITableView = {
+        let tv = UITableView()
+        
+        return tv
+    }()
     
     
     let defaults = UserDefaults.standard
@@ -51,9 +49,6 @@ class HomeVC: UIViewController {
         }
     }
     
-    
-    
-//    private let SpotifyClientID = "2b8423af0918491b86dc11725d6fe608"
     private let SpotifyClientID = Constants.SpotifyClientID
     private let spotifyRedirectURI = URL(string: "CrowdPlay://")!
     
@@ -85,107 +80,27 @@ class HomeVC: UIViewController {
     private var lastPlayerState: SPTAppRemotePlayerState?
     
     
-
-    var searchTerm = ""
-    
-    let coverImage: UIImageView = {
-        let ci = UIImageView()
-        ci.contentMode = .scaleAspectFit
-        ci.backgroundColor = .blue
-        
-        return ci
-    }()
-    
-    
-    let tableView: UITableView = {
-        let tv = UITableView()
-//        tv.backgroundColor = .white
-        return tv
-    }()
-    
-    let stackView: UIStackView = {
-        let sv = UIStackView()
-        sv.alignment = .center
-        sv.distribution = .equalSpacing
-        sv.backgroundColor = .red
-        return sv
-    }()
-    
-//    let searchController = UISearchController(searchResultsController: nil)
-    
-    let searchBar: UISearchBar = {
-        let sb = UISearchBar()
-        sb.placeholder = "Search for a track"
-        sb.sizeToFit()
-        
-        return sb
-    }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isHidden = false
-        navigationItem.titleView = searchBar
-        searchBar.delegate = self
-        navigationItem.setHidesBackButton(true, animated: false)
-        setupUI()
-        setupTableView()
+        setupTable()
         
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-//        view.addGestureRecognizer(tapGesture)
     }
     
-//    @objc func viewTapped() {
-//        view.endEditing(true)
-//    }
     
-    func getTracks() {
+    func setupTable() {
+        self.view.addSubview(queueTableView)
+        queueTableView.delegate = self
+        queueTableView.dataSource = self
+        queueTableView.register(TrackTableViewCell.self, forCellReuseIdentifier: "TrackTableViewCell")
         
-        APIRouter.shared.searchRequest(keyWord: searchTerm, completion: { result in
-            switch result {
-            case .success(let trackResponse):
-                self.trackItems.append(contentsOf: trackResponse.tracks!.items)
-            case .failure(let error):
-                print(error)
-            }
+        queueTableView.snp.makeConstraints { (make) in
+            make.left.right.top.bottom.equalToSuperview()
             
-        })
-        
-        
-    }
-    
-    
-    func setupUI() {
-        
-        self.view.addSubview(stackView)
-        stackView.snp.makeConstraints { (make) in
-            make.height.equalTo(self.view.snp.height).multipliedBy(0.10)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-            make.width.equalToSuperview()
-            make.centerX.equalToSuperview()
-        }
-        
-        self.view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.width.equalTo(self.view.snp.width)
-            make.bottom.equalTo(stackView.snp.top)
-            make.centerX.equalToSuperview()
         }
         
         
-        
-        
     }
-    
-    func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(TrackTableViewCell.self, forCellReuseIdentifier: "TrackTableViewCell")
-        tableView.isUserInteractionEnabled = true
-        
-    }
-    
     
     
     func fetchSpotifyToken(completion: @escaping ([String: Any]?, Error?) -> Void) {
@@ -225,6 +140,17 @@ class HomeVC: UIViewController {
         }
     }
     
+}
+
+
+extension QueueVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
     
     
     
@@ -232,28 +158,9 @@ class HomeVC: UIViewController {
     
 }
 
-extension HomeVC: UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        let tmpText = searchText
-        let formatedSTR = tmpText.replacingOccurrences(of: " ", with: "%20")
-        
-        self.trackItems = []
-        self.searchTerm = formatedSTR
-        getTracks()
-        
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-    
-    
-}
 
 
-extension HomeVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
+extension QueueVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
         
     }
@@ -283,39 +190,3 @@ extension HomeVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemoteP
     }
     
 }
-
-
-extension HomeVC: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trackItems.count
-        
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.identifier, for: indexPath) as! TrackTableViewCell
-        cell.titleLabel.text = trackItems[indexPath.row].name
-        cell.artistLabel.text = trackItems[indexPath.row].artists[0].name
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("making api call to queue")
-        tableView.deselectRow(at: indexPath, animated: true)
-        let trackURI = trackItems[indexPath.row].uri
-        APIRouter.shared.queueRequest(URI: trackURI, completion: { result in
-            switch result {
-            case .success(let any):
-                print(any)
-            case .failure(let error):
-                print(error)
-            default:
-                print("SUCCESSFULLY QUEUED")
-            }
-
-        })
-
-    }
-    
-}
-
-

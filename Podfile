@@ -14,6 +14,7 @@ target 'CrowdPlay' do
   pod 'SnapKit'
   pod 'KeychainSwift'
   pod 'Alamofire', '~> 5.2'
+  pod 'Kingfisher', '~> 5.0'
 
   target 'CrowdPlayTests' do
     inherit! :search_paths

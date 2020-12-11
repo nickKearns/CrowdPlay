@@ -17,7 +17,7 @@ class LoginVC: UIViewController {
     let defaults = UserDefaults.standard
     
     
-    let homeVC = HomeVC()
+    let homeVC = AddSongVC()
 
     
     
@@ -88,9 +88,9 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
         
         setupButton()
-        setupGoButton()
 //        navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = .systemBlue
+        navigationItem.setHidesBackButton(true, animated: false)
         
         
         //        let ref = Database.database().reference()
@@ -149,8 +149,8 @@ class LoginVC: UIViewController {
     
     func checkForConnection() {
         if appRemote.isConnected {
-            let homeVC = HomeVC()
-            navigationController?.pushViewController(homeVC, animated: true)
+            let addSongVC = AddSongVC()
+            navigationController?.pushViewController(addSongVC, animated: true)
         }
         else {
             //do nothing
@@ -179,7 +179,7 @@ extension LoginVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemote
         appRemote.connectionParameters.accessToken = session.accessToken
         //        keychain.set(session.accessToken, forKey: "accessToken")
         defaults.setValue(true, forKey: "loggedIn")
-        let homeVC = HomeVC()
+        let addSongVC = AddSongVC()
         print("initiating session")
         print("logged in")
         navigationController?.pushViewController(homeVC, animated: true)

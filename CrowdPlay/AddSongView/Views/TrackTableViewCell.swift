@@ -7,12 +7,18 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class TrackTableViewCell: UITableViewCell {
     
     
     static let identifier: String = "TrackTableViewCell"
     
+    
+    let trackImage: UIImageView = {
+        let iv = UIImageView()
+        return iv
+    }()
     
     let artistLabel: UILabel = {
         let l = UILabel()
@@ -23,7 +29,10 @@ class TrackTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let l = UILabel()
-        l.textAlignment = .center
+        l.textAlignment = .left
+        l.lineBreakMode = .byTruncatingTail
+        l.numberOfLines = 1
+        l.adjustsFontSizeToFitWidth = false
         
         return l
     }()
@@ -31,7 +40,7 @@ class TrackTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupLabel()
+        setupUI()
         
     }
     
@@ -40,18 +49,29 @@ class TrackTableViewCell: UITableViewCell {
     }
     
     
-    func setupLabel() {
-        self.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { (make) in
-            //            make.center.equalToSuperview()
+    func setupUI() {
+        self.addSubview(trackImage)
+        trackImage.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(8)
             make.centerY.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+
         }
+
+        
+        
         self.addSubview(artistLabel)
         artistLabel.snp.makeConstraints { (make) in
-            make.right.equalToSuperview().offset(-8)
+            make.right.equalToSuperview().offset(-8).priority(.low)
             make.centerY.equalToSuperview()
             
+        }
+        self.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(75)
+            make.centerY.equalToSuperview()
+            make.width.lessThanOrEqualToSuperview().multipliedBy(0.50).priority(.high)
         }
         
     }

@@ -45,13 +45,13 @@ class APIRouter {
             "Authorization": "Bearer \(token)"
         ]
 
-        
-        let searchURL = "\(baseURL)search?q=\(keyWord)&type=track&limit=10"
+        //limit set to 5 just for testing
+        let searchURL = "\(baseURL)search?q=\(keyWord)&type=track&limit=5"
         
         
         AF.request(searchURL, headers: headers)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: TracksResponse.self) { [self] response in
+            .responseDecodable(of: TracksResponse.self) { response in
                 switch response.result {
                 case .success(let results):
                     completion(.success(results))
@@ -64,9 +64,6 @@ class APIRouter {
             }
     }
     
-    func imageRequest() {
-        
-    }
     
     func queueRequest(URI: String, completion: @escaping (AFResult<Any>) -> Void) {
         
@@ -84,7 +81,7 @@ class APIRouter {
         AF.request( queueURL, method: .post, headers: headers)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
-                let responseCode = response.response?.statusCode
+//                let responseCode = response.response?.statusCode
                 switch response.result {
                 case .success(let success):
                     //do nothing
