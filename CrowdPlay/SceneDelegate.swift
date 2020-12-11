@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
         let configuration = SPTConfiguration(clientID: Constants.SpotifyClientID, redirectURL:  Constants.spotifyRedirectURI)
         // Set the playURI to a non-nil value so that Spotify plays music after authenticating and App Remote can connect
         // otherwise another app switch will be required
-        configuration.playURI = ""
+//        configuration.playURI = ""
         
         // Set these url's to your backend which contains the secret to exchange for an access token
         // You can use the provided ruby script spotify_token_swap.rb for testing purposes
@@ -65,9 +65,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
             queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
             addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
             
-            let addSongNav = UINavigationController(rootViewController: addSongVC)
+            addSongVC.queueVCInstance = queueVC
             
-            tabBar.viewControllers = [queueVC, addSongNav]
+            let addSongNav = UINavigationController(rootViewController: addSongVC)
+            let queueNav = UINavigationController(rootViewController: queueVC)
+            
+            tabBar.viewControllers = [addSongNav, queueNav]
             
             let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
             

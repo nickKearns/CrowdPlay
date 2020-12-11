@@ -38,7 +38,7 @@ class APIRouter {
     
     
     
-    func searchRequest(keyWord: String, completion: @escaping (Result<TracksResponse, Error>) -> Void) {
+    func searchRequest(keyWord: String, offset: Int, completion: @escaping (Result<TracksResponse, Error>) -> Void) {
 
 
         let headers: HTTPHeaders = [
@@ -46,7 +46,7 @@ class APIRouter {
         ]
 
         //limit set to 5 just for testing
-        let searchURL = "\(baseURL)search?q=\(keyWord)&type=track&limit=5"
+        let searchURL = "\(baseURL)search?q=\(keyWord)&type=track&offset=\(String(offset))"
         
         
         AF.request(searchURL, headers: headers)
@@ -95,7 +95,9 @@ class APIRouter {
                 }
                 
             }
-        
+    }
+    
+    func getRecentlyPlayed(completion: @escaping (AFResult<Any>) -> Void) {
         
         
         

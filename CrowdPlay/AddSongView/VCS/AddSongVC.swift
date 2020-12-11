@@ -18,6 +18,10 @@ class AddSongVC: UIViewController {
     
     //    let keychain = KeychainSwift()
     
+    var queueVCInstance: QueueVC?
+    
+    var offset: Int = 0
+    
     var trackItems: [Item] = [] {
         didSet {
             tableView.reloadData()
@@ -143,7 +147,7 @@ class AddSongVC: UIViewController {
     
     func getTracks() {
         
-        APIRouter.shared.searchRequest(keyWord: searchTerm, completion: { result in
+        APIRouter.shared.searchRequest(keyWord: searchTerm, offset: offset, completion: { result in
             switch result {
             case .success(let trackResponse):
                 self.trackItems.append(contentsOf: trackResponse.tracks!.items)
@@ -199,7 +203,7 @@ class AddSongVC: UIViewController {
                                        "Content-Type": "application/x-www-form-urlencoded"]
         do {
             var requestBodyComponents = URLComponents()
-            let scopesAsString = Constants.scopesAsStrings.joined(separator: " ") //put array to string separated by whitespace
+            let scopesAsString = Constants.scopesAsStrings.joined(separator: " ")
             requestBodyComponents.queryItems = [
                 URLQueryItem(name: "client_id", value: clientID),
                 URLQueryItem(name: "grant_type", value: "authorization_code"),
@@ -245,7 +249,7 @@ extension AddSongVC: UISearchBarDelegate {
         
         let tmpText = searchText
         let formatedSTR = tmpText.replacingOccurrences(of: " ", with: "%20")
-        
+        self.offset = 0
         self.trackItems = []
         self.searchTerm = formatedSTR
         getTracks()
@@ -295,8 +299,13 @@ extension AddSongVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemo
 extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
     
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastElement = trackItems.count - 1
+        if indexPath.row == lastElement {
+            self.offset += 10
+            getTracks()
+        }
     }
     
     
@@ -335,10 +344,29 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
+    func updateQueue(item: Item) {
+        
+        //pass the item to be queued to the queueVC
+        //this could later become something to handle with Core Data or realm and then passing between VCs is not needed
+        //and will be easier to access the data later on
+        //as well as passing the information to firebase
+        
+        queueVCInstance?.queuedItems.append(item)
+        
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("making api call to queue")
         tableView.deselectRow(at: indexPath, animated: true)
-        let trackURI = trackItems[indexPath.row].uri
+        let itemAtIndexPath = trackItems[indexPath.row]
+        updateQueue(item: itemAtIndexPath)
+        
+        
+        let trackURI = itemAtIndexPath.uri
+        
+        
+        
         APIRouter.shared.queueRequest(URI: trackURI, completion: { result in
             
             //this api call results in a 204 code which does not fall under .success or .failure and doesnt reach the default case either

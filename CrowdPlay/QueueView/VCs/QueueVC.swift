@@ -11,8 +11,10 @@ import Foundation
 class QueueVC: UIViewController {
     
     
-    var trackItems: [Items] = [] {
-        queueTableView.reloadData()
+    var queuedItems: [Item] = [] {
+        didSet {
+            queueTableView.reloadData()
+        }
     }
     
     let queueTableView: UITableView = {
@@ -83,6 +85,8 @@ class QueueVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.title = "The Queue"
         setupTable()
         
     }
@@ -140,16 +144,44 @@ class QueueVC: UIViewController {
         }
     }
     
+    
+    
+    
+    
 }
 
 
 extension QueueVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return queuedItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.identifier, for: indexPath) as! TrackTableViewCell
+        
+        cell.titleLabel.text = queuedItems[indexPath.row].name
+        cell.artistLabel.text = queuedItems[indexPath.row].artists[0].name
+
+        let images = queuedItems[indexPath.row].album.images
+        for image in images {
+            if image.height == 300 {
+                cell.imageView?.kf.setImage(with: image.url, completionHandler: { result in
+                    switch result {
+                    case .success(let imageResult):
+                        // MARK: asynchronously input the images into each cell's image view
+                        DispatchQueue.main.async {
+                            cell.imageView!.image = imageResult.image
+                            
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                })
+            }
+        }
+        
+        return cell
+        
     }
     
     
