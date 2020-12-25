@@ -78,7 +78,7 @@ class APIRouter {
         
         print(queueURL)
         
-        AF.request( queueURL, method: .post, headers: headers)
+        AF.request(queueURL, method: .post, headers: headers)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
 //                let responseCode = response.response?.statusCode
@@ -97,7 +97,26 @@ class APIRouter {
             }
     }
     
-    func getRecentlyPlayed(completion: @escaping (AFResult<Any>) -> Void) {
+    func getRecentlyPlayed(completion: @escaping (Result<Tracks, Error>) -> Void) {
+            
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)"
+        ]
+        
+        let recentlyPlayedURL: String = "https://api.spotify.com/v1/me/player/recently-played"
+        
+        AF.request(recentlyPlayedURL, method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: Tracks.self) { response in
+                switch response.result {
+                case .success(let tracks):
+                    completion(.success(tracks))
+                case .failure(let error):
+                    completion(.failure(error))
+                    print(error)
+                }
+                
+            }
         
         
         

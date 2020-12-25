@@ -9,13 +9,8 @@
 /* Begin PBXBuildFile section */
 		0128568F25787BD700B537C6 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01285687257875A800B537C6 /* APIRouter.swift */; };
 		012BDB4525647F330035D6FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDB4425647F330035D6FB /* Constants.swift */; };
-		012BDB972564C6130035D6FB /* SpotifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDB962564C6130035D6FB /* SpotifyAPI.swift */; };
-		012BDB9C2564C6600035D6FB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDB9B2564C6600035D6FB /* APIClient.swift */; };
-		012BDBA62564C6A30035D6FB /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDBA52564C6A30035D6FB /* RequestBuilder.swift */; };
 		012BDBAC2564C7220035D6FB /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDBAB2564C7220035D6FB /* Model.swift */; };
 		012BDBC82564CF6F0035D6FB /* Tracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDBC72564CF6F0035D6FB /* Tracks.swift */; };
-		012BDBCF2564D3660035D6FB /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDBA02564C6820035D6FB /* Request.swift */; };
-		012BDBD72565A7920035D6FB /* SpotifyAppRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDBD62565A7920035D6FB /* SpotifyAppRemote.swift */; };
 		012BDC072565B9520035D6FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014EC1A82563019F00AAE65E /* SceneDelegate.swift */; };
 		014EC1A72563019F00AAE65E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014EC1A62563019F00AAE65E /* AppDelegate.swift */; };
 		014EC1AB2563019F00AAE65E /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014EC1AA2563019F00AAE65E /* LoginVC.swift */; };
@@ -55,13 +50,8 @@
 		01285687257875A800B537C6 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		012BDB4425647F330035D6FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		012BDB4C2564909A0035D6FB /* AddSongVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSongVC.swift; sourceTree = "<group>"; };
-		012BDB962564C6130035D6FB /* SpotifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAPI.swift; sourceTree = "<group>"; };
-		012BDB9B2564C6600035D6FB /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
-		012BDBA02564C6820035D6FB /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		012BDBA52564C6A30035D6FB /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		012BDBAB2564C7220035D6FB /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		012BDBC72564CF6F0035D6FB /* Tracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracks.swift; sourceTree = "<group>"; };
-		012BDBD62565A7920035D6FB /* SpotifyAppRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAppRemote.swift; sourceTree = "<group>"; };
 		014EC1A32563019F00AAE65E /* CrowdPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrowdPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		014EC1A62563019F00AAE65E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		014EC1A82563019F00AAE65E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,11 +120,6 @@
 		012BDB952564C5A60035D6FB /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				012BDB962564C6130035D6FB /* SpotifyAPI.swift */,
-				012BDB9B2564C6600035D6FB /* APIClient.swift */,
-				012BDBA02564C6820035D6FB /* Request.swift */,
-				012BDBA52564C6A30035D6FB /* RequestBuilder.swift */,
-				012BDBD62565A7920035D6FB /* SpotifyAppRemote.swift */,
 				01285687257875A800B537C6 /* APIRouter.swift */,
 			);
 			path = Networking;
@@ -520,18 +505,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				012BDBD72565A7920035D6FB /* SpotifyAppRemote.swift in Sources */,
 				01870E212582898300970B89 /* AddSongVC.swift in Sources */,
 				014EC1AB2563019F00AAE65E /* LoginVC.swift in Sources */,
-				012BDB9C2564C6600035D6FB /* APIClient.swift in Sources */,
-				012BDBA62564C6A30035D6FB /* RequestBuilder.swift in Sources */,
-				012BDBCF2564D3660035D6FB /* Request.swift in Sources */,
 				01870E6B2583EE8800970B89 /* QueueVC.swift in Sources */,
 				012BDBAC2564C7220035D6FB /* Model.swift in Sources */,
 				0128568F25787BD700B537C6 /* APIRouter.swift in Sources */,
 				012BDBC82564CF6F0035D6FB /* Tracks.swift in Sources */,
 				014EC1A72563019F00AAE65E /* AppDelegate.swift in Sources */,
-				012BDB972564C6130035D6FB /* SpotifyAPI.swift in Sources */,
 				012BDB4525647F330035D6FB /* Constants.swift in Sources */,
 				012BDC072565B9520035D6FB /* SceneDelegate.swift in Sources */,
 				01870DB9258046C900970B89 /* TrackTableViewCell.swift in Sources */,

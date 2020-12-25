@@ -10,10 +10,12 @@ import Foundation
 
 struct TracksResponse: Model, Codable {
     let tracks: Tracks?
-    
-    
-    
 }
+
+struct RecentlyPlayedResponse: Model, Codable {
+    let item: Item    
+}
+
 
 struct Tracks: Model, Codable {
     let items: [Item]

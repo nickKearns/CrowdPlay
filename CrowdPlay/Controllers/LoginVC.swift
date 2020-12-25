@@ -112,7 +112,7 @@ class LoginVC: UIViewController {
     
     //MARK: UI FUNCTIONS
     @objc func signInTapped() {
-        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .streaming, .userModifyPlaybackState, .userReadPlaybackState, .userTopRead]
+        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .streaming, .userModifyPlaybackState, .userReadPlaybackState, .userTopRead, .userReadRecentlyPlayed]
         
         
         sessionManager.initiateSession(with: scope, options: .default)

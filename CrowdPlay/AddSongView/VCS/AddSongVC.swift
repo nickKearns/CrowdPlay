@@ -156,7 +156,20 @@ class AddSongVC: UIViewController {
             }
             
         })
+    }
+    
+    func checkRecentPlayed() {
         
+        APIRouter.shared.getRecentlyPlayed() { result in
+            switch result {
+            case .success(let tracks):
+                //do some checking against
+                print(tracks)
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
         
     }
     
@@ -362,6 +375,7 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
         let itemAtIndexPath = trackItems[indexPath.row]
         updateQueue(item: itemAtIndexPath)
         
+//        checkRecentPlayed()q
         
         let trackURI = itemAtIndexPath.uri
         
