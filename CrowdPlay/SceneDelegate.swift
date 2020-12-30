@@ -60,30 +60,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
             
             
             
-            let tabBar = UITabBarController()
             
-            queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
-            addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
+//            window.rootViewController = loginVC
             
-            addSongVC.queueVCInstance = queueVC
+            window.rootViewController = OpeningViewController()
             
-            let addSongNav = UINavigationController(rootViewController: addSongVC)
-            let queueNav = UINavigationController(rootViewController: queueVC)
             
-            tabBar.viewControllers = [addSongNav, queueNav]
             
+//            let tabBar = UITabBarController()
+//
+//            queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
+//            addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
+//
+//            addSongVC.queueVCInstance = queueVC
+//
+//            let addSongNav = UINavigationController(rootViewController: addSongVC)
+//            let queueNav = UINavigationController(rootViewController: queueVC)
+//
+//            tabBar.viewControllers = [addSongNav, queueNav]
+//
             let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
-            
-            if accessToken == "" {
-                window.rootViewController = navigation
-                navigation.pushViewController(loginVC, animated: true)
-                print("loginVC")
-            }
-            else {
-                window.rootViewController = tabBar
-                tabBar.selectedIndex = 0
-//                navigation.pushViewController(addSongVC, animated: true)
-            }
+//
+//            if accessToken == "" {
+//                window.rootViewController = navigation
+//                navigation.pushViewController(loginVC, animated: true)
+//                print("loginVC")
+//            }
+//            else {
+//                window.rootViewController = tabBar
+//                tabBar.selectedIndex = 0
+////                navigation.pushViewController(addSongVC, animated: true)
+//            }
             
             print(accessToken)
 
