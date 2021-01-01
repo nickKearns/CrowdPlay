@@ -104,12 +104,13 @@ class OpeningViewController: UIViewController {
     /// advances to giving the user their host code view
     @objc func hostButtonTapped() {
         // show the next view for hosting option
+        navigationController?.pushViewController(HostsCodeViewController(), animated: true)
         
     }
     
     /// advances to the enter host's code view
     @objc func joinButtonTapped() {
-        // show the next view for joing option
+        // show the next view for joining option
     }
     
     

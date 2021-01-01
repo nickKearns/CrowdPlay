@@ -63,8 +63,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
             
 //            window.rootViewController = loginVC
             
-            window.rootViewController = OpeningViewController()
+//            window.rootViewController = OpeningViewController()
             
+            let navigation = UINavigationController(rootViewController: OpeningViewController())
+            window.rootViewController = navigation
+            navigation.title = "Home"
+            navigation.navigationBar.prefersLargeTitles = true
             
             
 //            let tabBar = UITabBarController()
@@ -78,7 +82,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
 //            let queueNav = UINavigationController(rootViewController: queueVC)
 //
 //            tabBar.viewControllers = [addSongNav, queueNav]
-//
+
             let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
 //
 //            if accessToken == "" {

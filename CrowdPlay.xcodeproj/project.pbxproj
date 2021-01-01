@@ -19,6 +19,7 @@
 		014EC1BE256301A200AAE65E /* CrowdPlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014EC1BD256301A200AAE65E /* CrowdPlayTests.swift */; };
 		014EC1C9256301A200AAE65E /* CrowdPlayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014EC1C8256301A200AAE65E /* CrowdPlayUITests.swift */; };
 		014EC2172564678300AAE65E /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014EC2162564678300AAE65E /* SpotifyiOS.framework */; };
+		0154A510259EB11A00E7E014 /* HostsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0157ADB3259D4349000A8594 /* HostsCodeViewController.swift */; };
 		0157AD912599669F000A8594 /* OpeningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0157AD902599669F000A8594 /* OpeningViewController.swift */; };
 		01870DB9258046C900970B89 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0128568225783F5F00B537C6 /* TrackTableViewCell.swift */; };
 		01870DFB2581CEFB00970B89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01870DFA2581CEFB00970B89 /* GoogleService-Info.plist */; };
@@ -69,6 +70,7 @@
 		014EC20F256465EC00AAE65E /* CrowdPlay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CrowdPlay-Bridging-Header.h"; sourceTree = "<group>"; };
 		014EC2162564678300AAE65E /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		0157AD902599669F000A8594 /* OpeningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningViewController.swift; sourceTree = "<group>"; };
+		0157ADB3259D4349000A8594 /* HostsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostsCodeViewController.swift; sourceTree = "<group>"; };
 		01870DFA2581CEFB00970B89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		01870E3D2583D17D00970B89 /* QueueVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueVC.swift; sourceTree = "<group>"; };
 		17BFDCEC59B161A1A0BD5491 /* Pods-CrowdPlayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdPlayTests.debug.xcconfig"; path = "Target Support Files/Pods-CrowdPlayTests/Pods-CrowdPlayTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -171,6 +173,8 @@
 		014EC1A52563019F00AAE65E /* CrowdPlay */ = {
 			isa = PBXGroup;
 			children = (
+				0157ADB2259D4332000A8594 /* Joining */,
+				0157ADB1259D4328000A8594 /* Hosting */,
 				01870E602583ED6F00970B89 /* QueueView */,
 				01870DBD25806BC600970B89 /* AddSongView */,
 				012BDBAA2564C71C0035D6FB /* Models */,
@@ -204,6 +208,21 @@
 				014EC1CA256301A200AAE65E /* Info.plist */,
 			);
 			path = CrowdPlayUITests;
+			sourceTree = "<group>";
+		};
+		0157ADB1259D4328000A8594 /* Hosting */ = {
+			isa = PBXGroup;
+			children = (
+				0157ADB3259D4349000A8594 /* HostsCodeViewController.swift */,
+			);
+			path = Hosting;
+			sourceTree = "<group>";
+		};
+		0157ADB2259D4332000A8594 /* Joining */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Joining;
 			sourceTree = "<group>";
 		};
 		01870DBD25806BC600970B89 /* AddSongView */ = {
@@ -511,6 +530,7 @@
 				01870E212582898300970B89 /* AddSongVC.swift in Sources */,
 				014EC1AB2563019F00AAE65E /* LoginVC.swift in Sources */,
 				01870E6B2583EE8800970B89 /* QueueVC.swift in Sources */,
+				0154A510259EB11A00E7E014 /* HostsCodeViewController.swift in Sources */,
 				012BDBAC2564C7220035D6FB /* Model.swift in Sources */,
 				0128568F25787BD700B537C6 /* APIRouter.swift in Sources */,
 				012BDBC82564CF6F0035D6FB /* Tracks.swift in Sources */,
