@@ -11,12 +11,16 @@ import SnapKit
 import KeychainSwift
 import Alamofire
 import Kingfisher
+import CodableFirebase
 
 
 class AddSongVC: UIViewController {
     
     
-    //    let keychain = KeychainSwift()
+    var sessionID: String? = ""
+    
+    var ref = Database.database().reference()
+
     
     var queueVCInstance: QueueVC?
     
@@ -116,7 +120,6 @@ class AddSongVC: UIViewController {
         return sv
     }()
     
-//    let searchController = UISearchController(searchResultsController: nil)
     
     let searchBar: UISearchBar = {
         let sb = UISearchBar()
@@ -171,13 +174,6 @@ class AddSongVC: UIViewController {
     
     func setupUI() {
         
-//        self.view.addSubview(stackView)
-//        stackView.snp.makeConstraints { (make) in
-//            make.height.equalTo(self.view.snp.height).multipliedBy(0.10)
-//            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-//            make.width.equalToSuperview()
-//            make.centerX.equalToSuperview()
-//        }
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -196,10 +192,30 @@ class AddSongVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TrackTableViewCell.self, forCellReuseIdentifier: "TrackTableViewCell")
-//        tableView.isUserInteractionEnabled = true
         
     }
     
+    
+    func sendTrackToFireBase(item: Item) {
+    
+        let itemData = try! FirebaseEncoder().encode(item)
+        
+        self.ref.child(self.sessionID!).childByAutoId().setValue(itemData)
+        
+        
+    }
+    
+    
+    func updateQueue(item: Item) {
+        
+        //pass the item to be queued to the queueVC
+        //this could later become something to handle with Core Data or realm and then passing between VCs is not needed
+        //and will be easier to access the data later on
+        //as well as passing the information to firebase
+        
+        queueVCInstance?.queuedItems.append(item)
+        
+    }
     
     
     func fetchSpotifyToken(completion: @escaping ([String: Any]?, Error?) -> Void) {
@@ -353,16 +369,6 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    func updateQueue(item: Item) {
-        
-        //pass the item to be queued to the queueVC
-        //this could later become something to handle with Core Data or realm and then passing between VCs is not needed
-        //and will be easier to access the data later on
-        //as well as passing the information to firebase
-        
-        queueVCInstance?.queuedItems.append(item)
-        
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("making api call to queue")
@@ -370,7 +376,7 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
         let itemAtIndexPath = trackItems[indexPath.row]
         updateQueue(item: itemAtIndexPath)
         
-//        checkRecentPlayed()q
+        sendTrackToFireBase(item: itemAtIndexPath)
         
         let trackURI = itemAtIndexPath.uri
         
@@ -384,8 +390,7 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
                 print(any)
             case .failure(let error):
                 print(error)
-            default:
-                print("SUCCESSFULLY QUEUED")
+            
             }
 
         })

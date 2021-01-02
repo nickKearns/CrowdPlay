@@ -73,48 +73,9 @@ class HostsCodeViewController: UIViewController {
             make.height.equalToSuperview().multipliedBy(0.10)
             
         }
-//        inputTextField.addTarget(self, action: #selector(returnButtonTapped), for: .editingDidEndOnExit)
-        
-//        self.view.addSubview(submitButton)
-//        submitButton.snp.makeConstraints { (make) in
-//            make.top.equalTo(inputTextField.snp.bottom)
-//            make.centerX.equalToSuperview()
-//            make.width.equalToSuperview().multipliedBy(0.75)
-//
-//        }
-//        submitButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        
-        
+
         
     }
-    
-//    @objc func buttonTapped() {
-//        let code = inputTextField.text ?? ""
-//        self.ref.child(code).setValue("session")
-//
-//        let queueVC = QueueVC()
-//        let addSongVC = AddSongVC()
-//
-//        let tabBar = UITabBarController()
-//
-//        queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
-//        addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
-//
-//        addSongVC.queueVCInstance = queueVC
-//
-//        let addSongNav = UINavigationController(rootViewController: addSongVC)
-//        let queueNav = UINavigationController(rootViewController: queueVC)
-//
-//        tabBar.viewControllers = [addSongVC, queueVC]
-//
-//
-//        navigationController?.pushViewController(tabBar, animated: true)
-////        navigationController?.title = "Sesson: \(code)"
-//        tabBar.navigationController?.title = "Session: \(code)"
-//        tabBar.navigationController?.navigationBar.prefersLargeTitles = true
-//        tabBar.navigationController?.navigationItem.setHidesBackButton(true, animated: false)
-//    }
-    
     
 }
 
@@ -138,6 +99,9 @@ extension HostsCodeViewController: UITextFieldDelegate {
         
         let addSongNav = UINavigationController(rootViewController: addSongVC)
         let queueNav = UINavigationController(rootViewController: queueVC)
+        
+        addSongVC.sessionID = code
+        queueVC.sessionID = code
         
         tabBar.viewControllers = [addSongNav, queueNav]
         

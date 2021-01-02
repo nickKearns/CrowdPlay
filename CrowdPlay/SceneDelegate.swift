@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
         
     }
     
-
+    
     
     var window: UIWindow?
     

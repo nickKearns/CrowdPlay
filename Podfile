@@ -7,7 +7,6 @@ target 'CrowdPlay' do
 
   # Pods for CrowdPlay
 
-  pod 'Firebase/Analytics'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
@@ -15,6 +14,7 @@ target 'CrowdPlay' do
   pod 'KeychainSwift'
   pod 'Alamofire', '~> 5.2'
   pod 'Kingfisher', '~> 5.0'
+  pod 'CodableFirebase'
 
   target 'CrowdPlayTests' do
     inherit! :search_paths

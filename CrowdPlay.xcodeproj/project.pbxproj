@@ -20,10 +20,11 @@
 		014EC1C9256301A200AAE65E /* CrowdPlayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014EC1C8256301A200AAE65E /* CrowdPlayUITests.swift */; };
 		014EC2172564678300AAE65E /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014EC2162564678300AAE65E /* SpotifyiOS.framework */; };
 		0154A510259EB11A00E7E014 /* HostsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0157ADB3259D4349000A8594 /* HostsCodeViewController.swift */; };
+		0154A53025A04FD400E7E014 /* AddSongVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDB4C2564909A0035D6FB /* AddSongVC.swift */; };
+		0154A53525A0524800E7E014 /* JoiningCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A53425A0524800E7E014 /* JoiningCodeVC.swift */; };
 		0157AD912599669F000A8594 /* OpeningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0157AD902599669F000A8594 /* OpeningViewController.swift */; };
 		01870DB9258046C900970B89 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0128568225783F5F00B537C6 /* TrackTableViewCell.swift */; };
 		01870DFB2581CEFB00970B89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01870DFA2581CEFB00970B89 /* GoogleService-Info.plist */; };
-		01870E212582898300970B89 /* AddSongVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDB4C2564909A0035D6FB /* AddSongVC.swift */; };
 		01870E6B2583EE8800970B89 /* QueueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01870E3D2583D17D00970B89 /* QueueVC.swift */; };
 		595B35736B0019A135A3CA81 /* Pods_CrowdPlay_CrowdPlayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B677AF2CC8DA572209C2F4 /* Pods_CrowdPlay_CrowdPlayUITests.framework */; };
 		76EF438B73F0F3E875F1E4F9 /* Pods_CrowdPlayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79635EF22624B859A13E68D4 /* Pods_CrowdPlayTests.framework */; };
@@ -69,6 +70,7 @@
 		014EC1CA256301A200AAE65E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		014EC20F256465EC00AAE65E /* CrowdPlay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CrowdPlay-Bridging-Header.h"; sourceTree = "<group>"; };
 		014EC2162564678300AAE65E /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
+		0154A53425A0524800E7E014 /* JoiningCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoiningCodeVC.swift; sourceTree = "<group>"; };
 		0157AD902599669F000A8594 /* OpeningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningViewController.swift; sourceTree = "<group>"; };
 		0157ADB3259D4349000A8594 /* HostsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostsCodeViewController.swift; sourceTree = "<group>"; };
 		01870DFA2581CEFB00970B89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -221,6 +223,7 @@
 		0157ADB2259D4332000A8594 /* Joining */ = {
 			isa = PBXGroup;
 			children = (
+				0154A53425A0524800E7E014 /* JoiningCodeVC.swift */,
 			);
 			path = Joining;
 			sourceTree = "<group>";
@@ -527,14 +530,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01870E212582898300970B89 /* AddSongVC.swift in Sources */,
 				014EC1AB2563019F00AAE65E /* LoginVC.swift in Sources */,
 				01870E6B2583EE8800970B89 /* QueueVC.swift in Sources */,
 				0154A510259EB11A00E7E014 /* HostsCodeViewController.swift in Sources */,
+				0154A53025A04FD400E7E014 /* AddSongVC.swift in Sources */,
 				012BDBAC2564C7220035D6FB /* Model.swift in Sources */,
 				0128568F25787BD700B537C6 /* APIRouter.swift in Sources */,
 				012BDBC82564CF6F0035D6FB /* Tracks.swift in Sources */,
 				014EC1A72563019F00AAE65E /* AppDelegate.swift in Sources */,
+				0154A53525A0524800E7E014 /* JoiningCodeVC.swift in Sources */,
 				012BDB4525647F330035D6FB /* Constants.swift in Sources */,
 				012BDC072565B9520035D6FB /* SceneDelegate.swift in Sources */,
 				01870DB9258046C900970B89 /* TrackTableViewCell.swift in Sources */,

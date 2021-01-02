@@ -10,6 +10,7 @@ import Foundation
 
 class QueueVC: UIViewController {
     
+    var sessionID: String? = ""
     
     var queuedItems: [Item] = [] {
         didSet {

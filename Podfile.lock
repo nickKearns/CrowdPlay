@@ -1,7 +1,6 @@
 PODS:
-  - Alamofire (5.4.0)
-  - Firebase/Analytics (7.3.0):
-    - Firebase/Core
+  - Alamofire (5.4.1)
+  - CodableFirebase (0.2.1)
   - Firebase/Auth (7.3.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 7.3.0)
@@ -82,12 +81,12 @@ PODS:
     - nanopb/encode (= 2.30906.0)
   - nanopb/decode (2.30906.0)
   - nanopb/encode (2.30906.0)
-  - PromisesObjC (1.2.11)
+  - PromisesObjC (1.2.12)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
-  - Firebase/Analytics
+  - CodableFirebase
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -98,6 +97,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - CodableFirebase
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -117,7 +117,8 @@ SPEC REPOS:
     - SnapKit
 
 SPEC CHECKSUMS:
-  Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  CodableFirebase: 0bf201991eeec35eb9fcd987d271ea463cf34a80
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   FirebaseAnalytics: 2580c2d62535ae7b644143d48941fcc239ea897a
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
@@ -133,9 +134,9 @@ SPEC CHECKSUMS:
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
-  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: ed2b8156d44a2b2868ef1d5a5c1cd66ac33647a3
+PODFILE CHECKSUM: 6d84844dd0145656fc184ed36649d059511146ba
 
 COCOAPODS: 1.8.4

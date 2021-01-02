@@ -13,7 +13,7 @@ struct TracksResponse: Model, Codable {
 }
 
 struct RecentlyPlayedResponse: Model, Codable {
-    let item: Item    
+    let item: Item
 }
 
 
