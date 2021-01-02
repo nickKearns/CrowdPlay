@@ -16,7 +16,7 @@ class OpeningViewController: UIViewController {
         let l = UILabel()
         l.textAlignment = .center
         l.textColor = .white
-        l.backgroundColor = .systemBlue
+        l.backgroundColor = .clear
         l.text = """
                 Host a Session or
                 Join a Session
@@ -51,6 +51,7 @@ class OpeningViewController: UIViewController {
         super.viewDidLoad()
         setupLabel()
         setupButtons()
+        self.navigationItem.setHidesBackButton(true, animated: false)
         self.view.backgroundColor = .systemGray3
     }
     
@@ -104,6 +105,7 @@ class OpeningViewController: UIViewController {
     /// advances to giving the user their host code view
     @objc func hostButtonTapped() {
         // show the next view for hosting option
+        
         navigationController?.pushViewController(HostsCodeViewController(), animated: true)
         
     }

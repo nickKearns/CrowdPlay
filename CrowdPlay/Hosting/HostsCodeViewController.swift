@@ -18,7 +18,7 @@ class HostsCodeViewController: UIViewController {
         let l = UILabel()
         l.text = "Enter your session name"
         l.textAlignment = .center
-        l.backgroundColor = .systemBlue
+        l.backgroundColor = .clear
         l.font = UIFont(name: "Avenir Heavy", size: 20)
          
         return l
@@ -27,7 +27,11 @@ class HostsCodeViewController: UIViewController {
     let inputTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Session Name"
-        tf.backgroundColor = .systemBlue
+        tf.backgroundColor = .clear
+        tf.layer.borderColor = CGColor(red: 0, green: 0, blue: 1, alpha: 1)
+        tf.layer.borderWidth = 3
+        tf.layer.cornerRadius = 10
+        tf.textAlignment = .center
         tf.returnKeyType = .go
         
         return tf
@@ -58,7 +62,7 @@ class HostsCodeViewController: UIViewController {
             make.top.equalToSuperview().offset(200)
             make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.25)
-            make.width.equalToSuperview().multipliedBy(0.5)
+            make.width.equalToSuperview()
         }
         descriptionLabel.layer.cornerRadius = 10
         
@@ -84,35 +88,33 @@ class HostsCodeViewController: UIViewController {
         
     }
     
-    @objc func buttonTapped() {
-        let code = inputTextField.text ?? ""
-        self.ref.child(code).setValue("session")
-        
-        let queueVC = QueueVC()
-        let addSongVC = AddSongVC()
-        
-        let tabBar = UITabBarController()
-
-        queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
-        addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
-
-        addSongVC.queueVCInstance = queueVC
-
-        let addSongNav = UINavigationController(rootViewController: addSongVC)
-        let queueNav = UINavigationController(rootViewController: queueVC)
-
-        tabBar.viewControllers = [addSongNav, queueNav]
-        
-        navigationController?.pushViewController(tabBar, animated: true)
-        navigationController?.title = "Sesson: \(code)"
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-//    @objc func returnButtonTapped() {
+//    @objc func buttonTapped() {
+//        let code = inputTextField.text ?? ""
+//        self.ref.child(code).setValue("session")
+//
+//        let queueVC = QueueVC()
+//        let addSongVC = AddSongVC()
+//
+//        let tabBar = UITabBarController()
+//
+//        queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
+//        addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
+//
+//        addSongVC.queueVCInstance = queueVC
+//
+//        let addSongNav = UINavigationController(rootViewController: addSongVC)
+//        let queueNav = UINavigationController(rootViewController: queueVC)
+//
+//        tabBar.viewControllers = [addSongVC, queueVC]
 //
 //
-//
+//        navigationController?.pushViewController(tabBar, animated: true)
+////        navigationController?.title = "Sesson: \(code)"
+//        tabBar.navigationController?.title = "Session: \(code)"
+//        tabBar.navigationController?.navigationBar.prefersLargeTitles = true
+//        tabBar.navigationController?.navigationItem.setHidesBackButton(true, animated: false)
 //    }
+    
     
 }
 
@@ -120,6 +122,8 @@ extension HostsCodeViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let code = inputTextField.text ?? ""
+        
+        //add the session code to the db
         self.ref.child(code).setValue("session")
         
         let queueVC = QueueVC()
@@ -131,15 +135,19 @@ extension HostsCodeViewController: UITextFieldDelegate {
         addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
 
         addSongVC.queueVCInstance = queueVC
-
+        
         let addSongNav = UINavigationController(rootViewController: addSongVC)
         let queueNav = UINavigationController(rootViewController: queueVC)
-
+        
         tabBar.viewControllers = [addSongNav, queueNav]
         
+        tabBar.navigationController?.navigationBar.prefersLargeTitles = true
+        tabBar.navigationItem.setHidesBackButton(true, animated: true)
+        
+        tabBar.title = "Session: \(code)"
+        
+        self.navigationItem.setHidesBackButton(true, animated: true)
         navigationController?.pushViewController(tabBar, animated: true)
-        navigationController?.title = "Sesson: \(code)"
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         return true
     }
