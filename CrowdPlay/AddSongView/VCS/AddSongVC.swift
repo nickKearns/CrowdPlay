@@ -137,13 +137,8 @@ class AddSongVC: UIViewController {
         setupUI()
         setupTableView()
         searchBar.showsCancelButton = true
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-//        view.addGestureRecognizer(tapGesture)
     }
     
-//    @objc func viewTapped() {
-//        view.endEditing(true)
-//    }
     
     func getTracks() {
         

@@ -71,7 +71,7 @@ class TrackTableViewCell: UITableViewCell {
         titleLabel.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(75)
             make.centerY.equalToSuperview()
-            make.width.lessThanOrEqualToSuperview().multipliedBy(0.50).priority(.high)
+            make.width.lessThanOrEqualToSuperview().multipliedBy(0.40).priority(.high)
         }
         
     }

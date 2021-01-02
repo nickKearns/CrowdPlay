@@ -53,6 +53,15 @@ class OpeningViewController: UIViewController {
         setupButtons()
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.view.backgroundColor = .systemGray3
+        fetchSpotifyToken()
+    }
+    
+    
+    func fetchSpotifyToken() {
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        
+        navigationController?.present(LoginVC(), animated: true, completion: nil)
+        
     }
     
     

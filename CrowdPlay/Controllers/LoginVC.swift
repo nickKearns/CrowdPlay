@@ -27,20 +27,12 @@ class LoginVC: UIViewController {
         //        b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("Sign in with Spotify", for: .normal)
         b.addTarget(self, action: #selector(signInTapped), for: .touchUpInside)
-        b.tintColor = .systemGray6
+        b.tintColor = .systemBlue
         
         return b
     }()
     
-    let goButton: UIButton = {
-        let b = UIButton()
-        b.setTitle("Go", for: .normal)
-        b.addTarget(self, action: #selector(goButtonTapped), for: .touchUpInside)
-        b.tintColor = .systemGray6
-        
-        return b
-    }()
-    
+   
     
     
     var accessToken = UserDefaults.standard.string(forKey: "accessToken") {
@@ -88,15 +80,11 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
         
         setupButton()
-//        navigationController?.isNavigationBarHidden = true
-        self.view.backgroundColor = .systemBlue
+        
+        self.view.backgroundColor = .systemGray3
+        
         navigationItem.setHidesBackButton(true, animated: false)
-        
-        
-        //        let ref = Database.database().reference()
-        
-        
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,12 +104,9 @@ class LoginVC: UIViewController {
         
         
         sessionManager.initiateSession(with: scope, options: .default)
-        navigationController?.pushViewController(homeVC, animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func goButtonTapped() {
-        navigationController?.pushViewController(homeVC, animated: true)
-    }
     
     
     
@@ -136,16 +121,7 @@ class LoginVC: UIViewController {
         
     }
     
-    func setupGoButton() {
-        self.view.addSubview(goButton)
-        
-        goButton.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(signInButton.snp.bottom)
-            
-        }
-        
-    }
+    
     
     func checkForConnection() {
         if appRemote.isConnected {

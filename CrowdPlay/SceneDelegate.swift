@@ -61,55 +61,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
             
             
             
-//            window.rootViewController = loginVC
-            
-//            window.rootViewController = OpeningViewController()
-            
             let navigation = UINavigationController(rootViewController: OpeningViewController())
             window.rootViewController = navigation
             navigation.title = "Home"
             navigation.navigationBar.prefersLargeTitles = true
             
-            
-//            let tabBar = UITabBarController()
-//
-//            queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
-//            addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
-//
-//            addSongVC.queueVCInstance = queueVC
-//
-//            let addSongNav = UINavigationController(rootViewController: addSongVC)
-//            let queueNav = UINavigationController(rootViewController: queueVC)
-//
-//            tabBar.viewControllers = [addSongNav, queueNav]
+           
 
             let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
-//
-//            if accessToken == "" {
-//                window.rootViewController = navigation
-//                navigation.pushViewController(loginVC, animated: true)
-//                print("loginVC")
-//            }
-//            else {
-//                window.rootViewController = tabBar
-//                tabBar.selectedIndex = 0
-////                navigation.pushViewController(addSongVC, animated: true)
-//            }
+            
+            
             
             print(accessToken)
 
-            
-            
-            
-//            window.rootViewController = navigation
-            
-//            navigation.navigationBar
             
             self.window = window
             window.makeKeyAndVisible()
         }
         
-//        guard let _ = (scene as? UIWindowScene) else { return }
     }
     
     
