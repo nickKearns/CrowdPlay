@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import FirebaseDatabase
+import CodableFirebase
 
 
 class QueueVC: UIViewController {
     
     var sessionID: String? = ""
+    
+
     
     var queuedItems: [Item] = [] {
         didSet {
@@ -87,11 +91,14 @@ class QueueVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        setupDB()
+        
         self.navigationItem.title = "The Queue"
         setupTable()
         
     }
-    
+
     
     func setupTable() {
         self.view.addSubview(queueTableView)
@@ -105,6 +112,36 @@ class QueueVC: UIViewController {
         }
         
         
+    }
+    
+    func setupDB() {
+        let ref = Database.database().reference().child(self.sessionID!)
+
+        ref.observe(.childAdded, with: { (snapshot) -> Void in
+            guard let value = snapshot.value else {return}
+            do {
+                let item = try FirebaseDecoder().decode(Item.self, from: value)
+                self.queuedItems.append(item)
+//                self.queueTableView.insertRows(at: [IndexPath(row: self.queuedItems.count, section: 0)], with: .middle)
+                
+                APIRouter.shared.queueRequest(URI: item.uri, completion: { result in
+                    switch result {
+                    case .success(let any):
+                        print(any)
+                    case .failure(let error):
+                        print(error)
+                    }
+                    
+                })
+                
+                
+            } catch let error {
+                print(error)
+            }
+            
+            
+            
+        })
     }
     
     

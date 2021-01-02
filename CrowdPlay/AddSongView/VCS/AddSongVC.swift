@@ -29,6 +29,7 @@ class AddSongVC: UIViewController {
     var trackItems: [Item] = [] {
         didSet {
             tableView.reloadData()
+            queueNewSongs()
         }
     }
     
@@ -143,6 +144,12 @@ class AddSongVC: UIViewController {
     }
     
     
+    func queueNewSongs() {
+        
+        
+        
+    }
+    
     func getTracks() {
         
         APIRouter.shared.searchRequest(keyWord: searchTerm, offset: offset, completion: { result in
@@ -206,16 +213,16 @@ class AddSongVC: UIViewController {
     }
     
     
-    func updateQueue(item: Item) {
-        
-        //pass the item to be queued to the queueVC
-        //this could later become something to handle with Core Data or realm and then passing between VCs is not needed
-        //and will be easier to access the data later on
-        //as well as passing the information to firebase
-        
-        queueVCInstance?.queuedItems.append(item)
-        
-    }
+//    func updateQueue(item: Item) {
+//
+//        //pass the item to be queued to the queueVC
+//        //this could later become something to handle with Core Data or realm and then passing between VCs is not needed
+//        //and will be easier to access the data later on
+//        //as well as passing the information to firebase
+//
+//        queueVCInstance?.queuedItems.append(item)
+//
+//    }
     
     
     func fetchSpotifyToken(completion: @escaping ([String: Any]?, Error?) -> Void) {
@@ -374,7 +381,7 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
         print("making api call to queue")
         tableView.deselectRow(at: indexPath, animated: true)
         let itemAtIndexPath = trackItems[indexPath.row]
-        updateQueue(item: itemAtIndexPath)
+//        updateQueue(item: itemAtIndexPath)
         
         sendTrackToFireBase(item: itemAtIndexPath)
         

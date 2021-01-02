@@ -122,6 +122,7 @@ class OpeningViewController: UIViewController {
     /// advances to the enter host's code view
     @objc func joinButtonTapped() {
         // show the next view for joining option
+        navigationController?.pushViewController(JoiningCodeVC(), animated: true)
     }
     
     

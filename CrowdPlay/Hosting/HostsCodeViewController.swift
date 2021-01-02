@@ -36,16 +36,16 @@ class HostsCodeViewController: UIViewController {
         
         return tf
     }()
-    
-    let submitButton: UIButton = {
-        let b = UIButton()
-        b.setTitle("Go", for: .normal)
-        b.backgroundColor = .systemBlue
-        b.titleLabel?.font = UIFont(name: "Avenir Heavy", size: 40)
-        
-        return b
-    }()
-    
+//    
+//    let submitButton: UIButton = {
+//        let b = UIButton()
+//        b.setTitle("Go", for: .normal)
+//        b.backgroundColor = .systemBlue
+//        b.titleLabel?.font = UIFont(name: "Avenir Heavy", size: 40)
+//        
+//        return b
+//    }()
+//    
     
     
     override func viewDidLoad() {
@@ -92,17 +92,21 @@ extension HostsCodeViewController: UITextFieldDelegate {
         
         let tabBar = UITabBarController()
 
+        //give the vc's their respective images and titles
         queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
         addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
 
         addSongVC.queueVCInstance = queueVC
         
+        //embed the vcs in nav controllers to get the search bar and titles
         let addSongNav = UINavigationController(rootViewController: addSongVC)
         let queueNav = UINavigationController(rootViewController: queueVC)
         
         addSongVC.sessionID = code
         queueVC.sessionID = code
         
+        
+        // add the vc's to the tab bar
         tabBar.viewControllers = [addSongNav, queueNav]
         
         tabBar.navigationController?.navigationBar.prefersLargeTitles = true

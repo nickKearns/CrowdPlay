@@ -20,6 +20,7 @@ class JoiningCodeVC: UIViewController {
                 you are trying to join.
                 """
         l.numberOfLines = 0
+        l.textAlignment = .center
         l.font = UIFont(name: "Avenir Heavy", size: 25)
         
         return l
@@ -42,7 +43,8 @@ class JoiningCodeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        inputTextField.delegate = self
+        self.view.backgroundColor = .systemGray3
         setupUI()
         
     }
@@ -56,8 +58,8 @@ class JoiningCodeVC: UIViewController {
         inputTextField.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.30)
-            make.width.equalToSuperview().multipliedBy(0.75)
+            make.height.equalToSuperview().multipliedBy(0.10)
+            make.width.equalToSuperview().multipliedBy(0.95)
             
         }
         
@@ -65,11 +67,58 @@ class JoiningCodeVC: UIViewController {
         mainLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(inputTextField.snp.top).offset(-10)
-            make.height.equalToSuperview().multipliedBy(0.30)
-            make.width.equalToSuperview().multipliedBy(0.30)
+            make.height.equalToSuperview().multipliedBy(0.25)
+            make.width.equalToSuperview().multipliedBy(0.90)
             
         }
         
+    }
+    
+    
+    
+    
+    
+    
+}
+
+extension JoiningCodeVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let code = textField.text ?? ""
+        
+//        self.ref.child(code).setValue("session")
+        
+        let queueVC = QueueVC()
+        let addSongVC = AddSongVC()
+        
+        let tabBar = UITabBarController()
+
+        //give the vc's their respective images and titles
+        queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
+        addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
+
+        addSongVC.queueVCInstance = queueVC
+        
+        //embed the vcs in nav controllers to get the search bar and titles
+        let addSongNav = UINavigationController(rootViewController: addSongVC)
+        let queueNav = UINavigationController(rootViewController: queueVC)
+        
+        addSongVC.sessionID = code
+        queueVC.sessionID = code
+        
+        
+        // add the vc's to the tab bar
+        tabBar.viewControllers = [addSongNav, queueNav]
+        
+        tabBar.navigationController?.navigationBar.prefersLargeTitles = true
+        tabBar.navigationItem.setHidesBackButton(true, animated: true)
+        
+        tabBar.title = "Session: \(code)"
+        
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        navigationController?.pushViewController(tabBar, animated: true)
+        
+        return true
     }
     
     
