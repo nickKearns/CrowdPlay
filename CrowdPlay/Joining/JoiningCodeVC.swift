@@ -75,18 +75,7 @@ class JoiningCodeVC: UIViewController {
     }
     
     
-    
-    
-    
-    
-}
-
-extension JoiningCodeVC: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let code = textField.text ?? ""
-    
-        
+    func showMainView(code: String) {
         let queueVC = QueueVC()
         let addSongVC = AddSongVC()
         
@@ -116,6 +105,19 @@ extension JoiningCodeVC: UITextFieldDelegate {
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         navigationController?.pushViewController(tabBar, animated: true)
+    }
+    
+    
+    
+}
+
+extension JoiningCodeVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let code = textField.text ?? ""
+    
+        
+        showMainView(code: code)
         
         return true
     }

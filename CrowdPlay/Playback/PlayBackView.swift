@@ -62,6 +62,9 @@ class PlayBackView: UIView  {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.backgroundColor = .systemGray4
+        
+        
         setupUI()
         
     }
@@ -76,6 +79,7 @@ class PlayBackView: UIView  {
         stackView.addArrangedSubview(previousButton)
         stackView.addArrangedSubview(pausePlayButton)
         stackView.addArrangedSubview(skipButton)
+        
         
         stackView.snp.makeConstraints { (make) in
             make.left.right.top.bottom.equalToSuperview()

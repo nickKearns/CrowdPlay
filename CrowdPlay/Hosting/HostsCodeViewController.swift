@@ -67,12 +67,7 @@ class HostsCodeViewController: UIViewController {
         
     }
     
-}
-
-extension HostsCodeViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let code = inputTextField.text ?? ""
+    func showMainView(code: String) {
         
         //add the session code to the db
         self.ref.child(code).setValue("session")
@@ -108,6 +103,18 @@ extension HostsCodeViewController: UITextFieldDelegate {
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         navigationController?.pushViewController(tabBar, animated: true)
+        
+    }
+    
+    
+}
+
+extension HostsCodeViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let code = inputTextField.text ?? ""
+        
+        showMainView(code: code)
         
         return true
     }

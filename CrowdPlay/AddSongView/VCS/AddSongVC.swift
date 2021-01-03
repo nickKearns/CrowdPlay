@@ -193,6 +193,16 @@ class AddSongVC: UIViewController {
             make.right.equalToSuperview()
         }
         
+        let playBackView = PlayBackView()
+        self.view.addSubview(playBackView)
+        playBackView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.width.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.10)
+            
+        }
+        
+        
         
         
         
@@ -216,16 +226,6 @@ class AddSongVC: UIViewController {
     }
     
     
-//    func updateQueue(item: Item) {
-//
-//        //pass the item to be queued to the queueVC
-//        //this could later become something to handle with Core Data or realm and then passing between VCs is not needed
-//        //and will be easier to access the data later on
-//        //as well as passing the information to firebase
-//
-//        queueVCInstance?.queuedItems.append(item)
-//
-//    }
     
     
     func fetchSpotifyToken(completion: @escaping ([String: Any]?, Error?) -> Void) {
@@ -332,6 +332,17 @@ extension AddSongVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemo
 
 extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
     
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return self.view.frame.height * 0.10
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        if self.isHost == true {
+//            return PlayBackView()
+//        }
+//
+//        return nil
+//    }
     
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -345,7 +356,6 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return trackItems.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
