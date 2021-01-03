@@ -14,7 +14,7 @@ class QueueVC: UIViewController {
     
     var sessionID: String? = ""
     
-
+    var isHost: Bool = false
     
     var queuedItems: [Item] = [] {
         didSet {

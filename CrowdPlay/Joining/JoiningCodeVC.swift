@@ -28,7 +28,7 @@ class JoiningCodeVC: UIViewController {
     
     let inputTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Session ID"
+        tf.placeholder = "Session code"
         tf.backgroundColor = .clear
         tf.layer.borderColor = CGColor(red: 0, green: 0, blue: 1, alpha: 1)
         tf.layer.borderWidth = 3
@@ -59,7 +59,7 @@ class JoiningCodeVC: UIViewController {
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.10)
-            make.width.equalToSuperview().multipliedBy(0.95)
+            make.width.equalToSuperview().multipliedBy(0.75)
             
         }
         
@@ -85,8 +85,7 @@ extension JoiningCodeVC: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let code = textField.text ?? ""
-        
-//        self.ref.child(code).setValue("session")
+    
         
         let queueVC = QueueVC()
         let addSongVC = AddSongVC()

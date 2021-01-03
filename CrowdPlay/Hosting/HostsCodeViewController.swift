@@ -16,7 +16,7 @@ class HostsCodeViewController: UIViewController {
     
     let descriptionLabel: UILabel = {
         let l = UILabel()
-        l.text = "Enter your session name"
+        l.text = "Enter your session code"
         l.textAlignment = .center
         l.backgroundColor = .clear
         l.font = UIFont(name: "Avenir Heavy", size: 20)
@@ -26,7 +26,7 @@ class HostsCodeViewController: UIViewController {
     
     let inputTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Session Name"
+        tf.placeholder = "Session Code"
         tf.backgroundColor = .clear
         tf.layer.borderColor = CGColor(red: 0, green: 0, blue: 1, alpha: 1)
         tf.layer.borderWidth = 3
@@ -36,16 +36,6 @@ class HostsCodeViewController: UIViewController {
         
         return tf
     }()
-//    
-//    let submitButton: UIButton = {
-//        let b = UIButton()
-//        b.setTitle("Go", for: .normal)
-//        b.backgroundColor = .systemBlue
-//        b.titleLabel?.font = UIFont(name: "Avenir Heavy", size: 40)
-//        
-//        return b
-//    }()
-//    
     
     
     override func viewDidLoad() {
@@ -89,6 +79,8 @@ extension HostsCodeViewController: UITextFieldDelegate {
         
         let queueVC = QueueVC()
         let addSongVC = AddSongVC()
+        queueVC.isHost = true
+        addSongVC.isHost = true
         
         let tabBar = UITabBarController()
 

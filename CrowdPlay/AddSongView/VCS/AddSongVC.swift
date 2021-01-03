@@ -19,6 +19,9 @@ class AddSongVC: UIViewController {
     
     var sessionID: String? = ""
     
+    
+    var isHost: Bool = false
+    
     var ref = Database.database().reference()
 
     
