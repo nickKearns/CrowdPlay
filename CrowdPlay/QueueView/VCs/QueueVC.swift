@@ -93,11 +93,13 @@ class QueueVC: UIViewController {
         
         
         setupDB()
-        setupPlayBackView()
+        
         
         self.navigationItem.title = "Queue"
         setupTable()
-        
+        if self.isHost == true {
+            setupPlayBackView()
+        }
     }
 
     
@@ -111,6 +113,9 @@ class QueueVC: UIViewController {
             make.height.equalToSuperview().multipliedBy(0.10)
             
         }
+        
+       
+        
     }
     
     func setupTable() {

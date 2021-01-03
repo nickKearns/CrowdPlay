@@ -10,11 +10,8 @@ import Foundation
 
 class PlayBackView: UIView  {
     
-    // provide these callbacks within the vc that utilizes this view
-    // these callbacks will be used in the targets of each button
-    var pausePlayCallback: (() -> Void)?
-    var skipCallback: (() -> Void)?
-    var previousCallback: (() -> Void)?
+    // 1 means that music is being played -1 means it is paused
+    var isPlaying: Int = -1
     
     
     let pausePlayButton: UIButton = {
@@ -95,19 +92,43 @@ class PlayBackView: UIView  {
     
     @objc func pausePlayTapped() {
         
-        pausePlayCallback?()
+        
+        self.isPlaying = self.isPlaying * -1
+
+        if self.isPlaying == 1 {
+            APIRouter.shared.pauseRequest(completion: { result in
+                switch result {
+                case .success(let any):
+                    print(any)
+                case .failure(let error):
+                    print(error)
+                }
+                
+            })
+        }
+        else {
+            APIRouter.shared.playRequest(completion: { result in
+                switch result {
+                case .success(let any):
+                    print(any)
+                case .failure(let error):
+                    print(error)
+                }
+                
+            })
+        }
+        
+        
         
     }
     
     @objc func skipTapped() {
         
-        skipCallback?()
         
     }
     
     @objc func previousTapped() {
         
-        previousCallback?()
         
     }
     

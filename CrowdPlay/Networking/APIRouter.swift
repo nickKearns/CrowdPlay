@@ -64,6 +64,52 @@ class APIRouter {
             }
     }
     
+    func playRequest(completion: @escaping (AFResult<Any>) -> Void ) {
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)"
+        ]
+
+        //limit set to 5 just for testing
+        let url = "\(baseURL)me/player/play"
+        
+        AF.request(url, method: .put, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let any):
+                    print(any)
+                case .failure(let error):
+                    print(error)
+                }
+                
+            }
+        
+    }
+    
+    func pauseRequest(completion: @escaping (AFResult<Any>) -> Void ) {
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)"
+        ]
+
+        //limit set to 5 just for testing
+        let url = "\(baseURL)me/player/pause"
+        
+        AF.request(url, method: .put, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let any):
+                    print(any)
+                case .failure(let error):
+                    print(error)
+                }
+                
+            }
+        
+    }
+    
     
     func queueRequest(URI: String, completion: @escaping (AFResult<Any>) -> Void) {
         
