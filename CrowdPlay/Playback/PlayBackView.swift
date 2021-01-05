@@ -124,11 +124,29 @@ class PlayBackView: UIView  {
     
     @objc func skipTapped() {
         
+        APIRouter.shared.skipRequest(completion: { result in
+            switch result {
+            case .success(let any):
+                print(any)
+            case .failure(let error):
+                print(error)
+            }
+            
+        })
         
     }
     
     @objc func previousTapped() {
         
+        APIRouter.shared.previousRequest(completion: { result in
+            switch result {
+            case .success(let any):
+                print(any)
+            case .failure(let error):
+                print(error)
+            }
+            
+        })
         
     }
     

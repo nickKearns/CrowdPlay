@@ -142,15 +142,18 @@ class QueueVC: UIViewController {
                 self.queuedItems.append(item)
 //                self.queueTableView.insertRows(at: [IndexPath(row: self.queuedItems.count, section: 0)], with: .middle)
                 
-                APIRouter.shared.queueRequest(URI: item.uri, completion: { result in
-                    switch result {
-                    case .success(let any):
-                        print(any)
-                    case .failure(let error):
-                        print(error)
-                    }
+                if self.isHost {
                     
-                })
+                    APIRouter.shared.queueRequest(URI: item.uri, completion: { result in
+                        switch result {
+                        case .success(let any):
+                            print(any)
+                        case .failure(let error):
+                            print(error)
+                        }
+                        
+                    })
+                }
                 
                 
             } catch let error {

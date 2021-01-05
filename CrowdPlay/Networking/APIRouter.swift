@@ -110,6 +110,53 @@ class APIRouter {
         
     }
     
+    func skipRequest(completion: @escaping (AFResult<Any>) -> Void ) {
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)"
+            
+        ]
+        
+        let url = "\(baseURL)me/player/next"
+        
+        AF.request(url, method: .post, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let any):
+                    print(any)
+                case .failure(let error):
+                    print(error)
+                }
+                
+            }
+        
+    }
+    
+    func previousRequest(completion: @escaping (AFResult<Any>) -> Void ) {
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)"
+            
+        ]
+        
+        let url = "\(baseURL)me/player/previous"
+        
+        AF.request(url, method: .post, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let any):
+                    print(any)
+                case .failure(let error):
+                    print(error)
+                }
+                
+            }
+        
+    }
+    
+    
     
     func queueRequest(URI: String, completion: @escaping (AFResult<Any>) -> Void) {
         

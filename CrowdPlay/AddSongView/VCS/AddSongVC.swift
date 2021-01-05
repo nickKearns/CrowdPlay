@@ -337,18 +337,6 @@ extension AddSongVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemo
 
 extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
     
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return self.view.frame.height * 0.10
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        if self.isHost == true {
-//            return PlayBackView()
-//        }
-//
-//        return nil
-//    }
-    
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastElement = trackItems.count - 1
@@ -406,19 +394,6 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
         let trackURI = itemAtIndexPath.uri
         
         
-        
-        APIRouter.shared.queueRequest(URI: trackURI, completion: { result in
-            
-            //this api call results in a 204 code which does not fall under .success or .failure and doesnt reach the default case either
-            switch result {
-            case .success(let any):
-                print(any)
-            case .failure(let error):
-                print(error)
-            
-            }
-
-        })
 
     }
     
