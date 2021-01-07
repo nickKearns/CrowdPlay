@@ -87,7 +87,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
         guard let url = URLContexts.first?.url else { return }
         let parameters = addSongVC.appRemote.authorizationParameters(from: url)
         if let code = parameters?["code"] {
-            addSongVC.responseTypeCode = code
+//            addSongVC.responseTypeCode = code
         } else if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
             addSongVC.accessToken = access_token
             UserDefaults.standard.setValue(access_token, forKey: "accessToken")

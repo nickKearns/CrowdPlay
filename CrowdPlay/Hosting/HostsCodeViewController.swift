@@ -14,9 +14,13 @@ class HostsCodeViewController: UIViewController {
     
     var ref = Database.database().reference()
     
+    var sessionInstance: FirebaseDatabase.DatabaseReference?
+    var sessionID: String?
+    var sessionName: String?
+    
     let descriptionLabel: UILabel = {
         let l = UILabel()
-        l.text = "Enter your session code"
+        l.text = "Enter your session name"
         l.textAlignment = .center
         l.backgroundColor = .clear
         l.font = UIFont(name: "Avenir Heavy", size: 20)
@@ -42,6 +46,12 @@ class HostsCodeViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .systemGray3
         inputTextField.delegate = self
+        
+//        self.ref.child(self.sessionID!).childByAutoId().setValue(itemData)
+//        self.ref.childByAutoId().setValue("New Session")
+//        self.sessionID = self.ref.childByAutoId().key
+        
+        
         setupUI()
     }
     
@@ -54,6 +64,7 @@ class HostsCodeViewController: UIViewController {
             make.height.equalToSuperview().multipliedBy(0.25)
             make.width.equalToSuperview()
         }
+        
         descriptionLabel.layer.cornerRadius = 10
         
         self.view.addSubview(inputTextField)
@@ -67,10 +78,13 @@ class HostsCodeViewController: UIViewController {
         
     }
     
-    func showMainView(code: String) {
+    func showMainView(sessionId: String, sessionName: String) {
         
         //add the session code to the db
-        self.ref.child(code).setValue("session")
+        self.ref.child(sessionID!).setValue("session")
+        self.ref.child(sessionID!).child("Session Name").setValue(self.sessionName!)
+        
+        
         
         let queueVC = QueueVC()
         let addSongVC = AddSongVC()
@@ -89,8 +103,10 @@ class HostsCodeViewController: UIViewController {
         let addSongNav = UINavigationController(rootViewController: addSongVC)
         let queueNav = UINavigationController(rootViewController: queueVC)
         
-        addSongVC.sessionID = code
-        queueVC.sessionID = code
+        addSongVC.sessionID = self.sessionID!
+        addSongVC.sessionName = self.sessionName!
+        queueVC.sessionID = self.sessionID!
+        queueVC.sessionName = self.sessionName!
         
         
         // add the vc's to the tab bar
@@ -99,7 +115,7 @@ class HostsCodeViewController: UIViewController {
         tabBar.navigationController?.navigationBar.prefersLargeTitles = true
         tabBar.navigationItem.setHidesBackButton(true, animated: true)
         
-        tabBar.title = "Session: \(code)"
+        tabBar.title = "Session: \(self.sessionName!)"
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         navigationController?.pushViewController(tabBar, animated: true)
@@ -112,9 +128,13 @@ class HostsCodeViewController: UIViewController {
 extension HostsCodeViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let code = inputTextField.text ?? ""
+        let name = inputTextField.text ?? ""
         
-        showMainView(code: code)
+        self.sessionInstance = self.ref.childByAutoId()
+        self.sessionID = self.sessionInstance?.key
+        self.sessionName = name
+        
+        showMainView(sessionId: self.sessionID!, sessionName: self.sessionName!)
         
         return true
     }

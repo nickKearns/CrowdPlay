@@ -17,7 +17,8 @@ import CodableFirebase
 class AddSongVC: UIViewController {
     
     
-    var sessionID: String? = ""
+    var sessionID: String = ""
+    var sessionName: String = ""
     
     
     var isHost: Bool = false
@@ -47,23 +48,22 @@ class AddSongVC: UIViewController {
             UserDefaults.standard.setValue(accessToken, forKey: "accessToken")
         }
     }
-    var responseTypeCode: String? {
-        didSet {
-            fetchSpotifyToken { (dictionary, error) in
-                if let error = error {
-                    print("Fetching token request error \(error)")
-                    return
-                }
-                let accessToken = dictionary!["access_token"] as! String
-                DispatchQueue.main.async {
-                    self.defaults.setValue(accessToken, forKey: "accessToken")
-                    self.appRemote.connectionParameters.accessToken = accessToken
-                    self.appRemote.connect()
-                }
-            }
-        }
-    }
-    
+//    var responseTypeCode: String? {
+//        didSet {
+//            fetchSpotifyToken { (dictionary, error) in
+//                if let error = error {
+//                    print("Fetching token request error \(error)")
+//                    return
+//                }
+//                let accessToken = dictionary!["access_token"] as! String
+//                DispatchQueue.main.async {
+//                    self.defaults.setValue(accessToken, forKey: "accessToken")
+//                    self.appRemote.connectionParameters.accessToken = accessToken
+//                    self.appRemote.connect()
+//                }
+//            }
+//        }
+//    }
     
     
 //    private let SpotifyClientID = "2b8423af0918491b86dc11725d6fe608"
@@ -225,7 +225,7 @@ class AddSongVC: UIViewController {
     
         let itemData = try! FirebaseEncoder().encode(item)
         
-        self.ref.child(self.sessionID!).childByAutoId().setValue(itemData)
+        self.ref.child(self.sessionID).childByAutoId().setValue(itemData)
         
         
     }
@@ -233,42 +233,42 @@ class AddSongVC: UIViewController {
     
     
     
-    func fetchSpotifyToken(completion: @escaping ([String: Any]?, Error?) -> Void) {
-        let url = URL(string: "https://accounts.spotify.com/api/token")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let spotifyAuthKey = "Basic \((clientID + ":" + Constants.clientIdSecret).data(using: .utf8)!.base64EncodedString())"
-        request.allHTTPHeaderFields = ["Authorization": spotifyAuthKey,
-                                       "Content-Type": "application/x-www-form-urlencoded"]
-        do {
-            var requestBodyComponents = URLComponents()
-            let scopesAsString = Constants.scopesAsStrings.joined(separator: " ")
-            requestBodyComponents.queryItems = [
-                URLQueryItem(name: "client_id", value: clientID),
-                URLQueryItem(name: "grant_type", value: "authorization_code"),
-                URLQueryItem(name: "code", value: responseTypeCode!),
-                URLQueryItem(name: "redirect_uri", value: redirectURI.absoluteString),
-                URLQueryItem(name: "code_verifier", value: ""),
-                URLQueryItem(name: "scope", value: scopesAsString),
-            ]
-            request.httpBody = requestBodyComponents.query?.data(using: .utf8)
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data,                            // is there data
-                      let response = response as? HTTPURLResponse,  // is there HTTP response
-                      (200 ..< 300) ~= response.statusCode,         // is statusCode 2XX
-                      error == nil else {                           // was there no error, otherwise ...
-                    print("Error fetching token \(error?.localizedDescription ?? "")")
-                    return completion(nil, error)
-                }
-                let responseObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
-                print("Access Token Dictionary=", responseObject ?? "")
-                completion(responseObject, nil)
-            }
-            task.resume()
-        } catch {
-            print("Error JSON serialization \(error.localizedDescription)")
-        }
-    }
+//    func fetchSpotifyToken(completion: @escaping ([String: Any]?, Error?) -> Void) {
+//        let url = URL(string: "https://accounts.spotify.com/api/token")!
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        let spotifyAuthKey = "Basic \((clientID + ":" + Constants.clientIdSecret).data(using: .utf8)!.base64EncodedString())"
+//        request.allHTTPHeaderFields = ["Authorization": spotifyAuthKey,
+//                                       "Content-Type": "application/x-www-form-urlencoded"]
+//        do {
+//            var requestBodyComponents = URLComponents()
+//            let scopesAsString = Constants.scopesAsStrings.joined(separator: " ")
+//            requestBodyComponents.queryItems = [
+//                URLQueryItem(name: "client_id", value: clientID),
+//                URLQueryItem(name: "grant_type", value: "authorization_code"),
+//                URLQueryItem(name: "code", value: responseTypeCode!),
+//                URLQueryItem(name: "redirect_uri", value: redirectURI.absoluteString),
+//                URLQueryItem(name: "code_verifier", value: ""),
+//                URLQueryItem(name: "scope", value: scopesAsString),
+//            ]
+//            request.httpBody = requestBodyComponents.query?.data(using: .utf8)
+//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//                guard let data = data,                            // is there data
+//                      let response = response as? HTTPURLResponse,  // is there HTTP response
+//                      (200 ..< 300) ~= response.statusCode,         // is statusCode 2XX
+//                      error == nil else {                           // was there no error, otherwise ...
+//                    print("Error fetching token \(error?.localizedDescription ?? "")")
+//                    return completion(nil, error)
+//                }
+//                let responseObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+//                print("Access Token Dictionary=", responseObject ?? "")
+//                completion(responseObject, nil)
+//            }
+//            task.resume()
+//        } catch {
+//            print("Error JSON serialization \(error.localizedDescription)")
+//        }
+//    }
     
     
     
