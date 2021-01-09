@@ -44,7 +44,7 @@ class HostsCodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemGray3
+        self.view.backgroundColor = .systemBackground
         inputTextField.delegate = self
         
 //        self.ref.child(self.sessionID!).childByAutoId().setValue(itemData)
@@ -94,8 +94,8 @@ class HostsCodeViewController: UIViewController {
         let tabBar = UITabBarController()
 
         //give the vc's their respective images and titles
-        queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
-        addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
+        queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue"), selectedImage: nil)
+        addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong"), selectedImage: nil)
 
         addSongVC.queueVCInstance = queueVC
         

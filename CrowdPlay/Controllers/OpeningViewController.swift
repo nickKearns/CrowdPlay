@@ -52,7 +52,7 @@ class OpeningViewController: UIViewController {
         setupLabel()
         setupButtons()
         self.navigationItem.setHidesBackButton(true, animated: false)
-        self.view.backgroundColor = .systemGray3
+        self.view.backgroundColor = .systemBackground
         fetchSpotifyToken()
     }
     

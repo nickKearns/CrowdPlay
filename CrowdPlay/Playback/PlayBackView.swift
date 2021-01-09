@@ -11,13 +11,22 @@ import Foundation
 class PlayBackView: UIView  {
     
     // 1 means that music is being played -1 means it is paused
-    var isPlaying: Int = -1
+    var isPlaying: Int = 1 {
+        didSet {
+            if isPlaying == 1 {
+                self.pausePlayButton.isSelected = true
+            }
+            else {
+                self.pausePlayButton.isSelected = false
+            }
+        }
+    }
     
     
     let pausePlayButton: UIButton = {
         let b = UIButton()
-        b.setImage(UIImage(named: "play.png"), for: .normal)
-        b.setImage(UIImage(named: "pause.png"), for: .selected)
+        b.setImage(UIImage(named: "play"), for: .selected)
+        b.setImage(UIImage(named: "pause"), for: .normal)
         
         return b
     }()
@@ -37,7 +46,7 @@ class PlayBackView: UIView  {
     
     let skipButton: UIButton = {
         let b = UIButton()
-        b.setImage(UIImage(named: "skip.png"), for: .normal)
+        b.setImage(UIImage(named: "skip"), for: .normal)
         
         return b
     }()
@@ -47,7 +56,7 @@ class PlayBackView: UIView  {
     
     let previousButton: UIButton = {
         let b = UIButton()
-        b.setImage(UIImage(named: "previous.png"), for: .normal)
+        b.setImage(UIImage(named: "previous"), for: .normal)
         
         return b
     }()
@@ -60,7 +69,6 @@ class PlayBackView: UIView  {
         super.init(frame: frame)
         
         self.backgroundColor = .systemGray4
-        
         
         setupUI()
         
@@ -77,10 +85,25 @@ class PlayBackView: UIView  {
         stackView.addArrangedSubview(pausePlayButton)
         stackView.addArrangedSubview(skipButton)
         
+        pausePlayButton.snp.makeConstraints { (make) in
+            make.height.equalToSuperview()
+        }
+        
+        previousButton.snp.makeConstraints { (make) in
+            make.height.equalToSuperview()
+            
+        }
+        
+        skipButton.snp.makeConstraints { (make) in
+            make.height.equalToSuperview()
+            
+        }
         
         stackView.snp.makeConstraints { (make) in
             make.left.right.top.bottom.equalToSuperview()
         }
+        
+        
         
         pausePlayButton.addTarget(self, action: #selector(pausePlayTapped), for: .touchUpInside)
         skipButton.addTarget(self, action: #selector(skipTapped), for: .touchUpInside)
@@ -93,9 +116,10 @@ class PlayBackView: UIView  {
     @objc func pausePlayTapped() {
         
         
-        self.isPlaying = self.isPlaying * -1
+        
 
         if self.isPlaying == 1 {
+        
             APIRouter.shared.pauseRequest(completion: { result in
                 switch result {
                 case .success(let any):
@@ -118,11 +142,14 @@ class PlayBackView: UIView  {
             })
         }
         
+        self.isPlaying = self.isPlaying * -1
         
         
     }
     
     @objc func skipTapped() {
+        
+        self.isPlaying = 1
         
         APIRouter.shared.skipRequest(completion: { result in
             switch result {
@@ -137,6 +164,8 @@ class PlayBackView: UIView  {
     }
     
     @objc func previousTapped() {
+        
+        self.isPlaying = 1
         
         APIRouter.shared.previousRequest(completion: { result in
             switch result {

@@ -82,8 +82,8 @@ class JoiningCodeVC: UIViewController {
         let tabBar = UITabBarController()
 
         //give the vc's their respective images and titles
-        queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
-        addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong.png"), selectedImage: nil)
+        queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue"), selectedImage: nil)
+        addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong"), selectedImage: nil)
 
         addSongVC.queueVCInstance = queueVC
         

@@ -23,6 +23,7 @@
 		0154A53025A04FD400E7E014 /* AddSongVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDB4C2564909A0035D6FB /* AddSongVC.swift */; };
 		0154A53525A0524800E7E014 /* JoiningCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A53425A0524800E7E014 /* JoiningCodeVC.swift */; };
 		0154A53B25A1566600E7E014 /* PlayBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A53A25A1566600E7E014 /* PlayBackView.swift */; };
+		0154A54A25A9531500E7E014 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A54925A9531500E7E014 /* Colors.swift */; };
 		0157AD912599669F000A8594 /* OpeningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0157AD902599669F000A8594 /* OpeningViewController.swift */; };
 		01870DB9258046C900970B89 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0128568225783F5F00B537C6 /* TrackTableViewCell.swift */; };
 		01870DFB2581CEFB00970B89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01870DFA2581CEFB00970B89 /* GoogleService-Info.plist */; };
@@ -73,6 +74,7 @@
 		014EC2162564678300AAE65E /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		0154A53425A0524800E7E014 /* JoiningCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoiningCodeVC.swift; sourceTree = "<group>"; };
 		0154A53A25A1566600E7E014 /* PlayBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayBackView.swift; sourceTree = "<group>"; };
+		0154A54925A9531500E7E014 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0157AD902599669F000A8594 /* OpeningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningViewController.swift; sourceTree = "<group>"; };
 		0157ADB3259D4349000A8594 /* HostsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostsCodeViewController.swift; sourceTree = "<group>"; };
 		01870DFA2581CEFB00970B89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -177,6 +179,7 @@
 		014EC1A52563019F00AAE65E /* CrowdPlay */ = {
 			isa = PBXGroup;
 			children = (
+				0154A54825A9530A00E7E014 /* Extensions */,
 				0154A53925A1565900E7E014 /* Playback */,
 				0157ADB2259D4332000A8594 /* Joining */,
 				0157ADB1259D4328000A8594 /* Hosting */,
@@ -221,6 +224,14 @@
 				0154A53A25A1566600E7E014 /* PlayBackView.swift */,
 			);
 			path = Playback;
+			sourceTree = "<group>";
+		};
+		0154A54825A9530A00E7E014 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0154A54925A9531500E7E014 /* Colors.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		0157ADB1259D4328000A8594 /* Hosting */ = {
@@ -542,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				014EC1AB2563019F00AAE65E /* LoginVC.swift in Sources */,
+				0154A54A25A9531500E7E014 /* Colors.swift in Sources */,
 				01870E6B2583EE8800970B89 /* QueueVC.swift in Sources */,
 				0154A510259EB11A00E7E014 /* HostsCodeViewController.swift in Sources */,
 				0154A53025A04FD400E7E014 /* AddSongVC.swift in Sources */,
