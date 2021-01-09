@@ -93,8 +93,14 @@ class JoiningCodeVC: UIViewController {
         let queueNav = UINavigationController(rootViewController: queueVC)
         
         addSongVC.sessionID = code
+        
         queueVC.sessionID = code
         
+        let ref = Database.database().reference().child(code).child("Session Name").observe(.value, with: { (snapshot) in
+            guard let sessionName = snapshot.value else {return}
+            tabBar.title = "Session: \(sessionName)"
+            
+        })
         
         // add the vc's to the tab bar
         tabBar.viewControllers = [addSongNav, queueNav]
@@ -102,7 +108,7 @@ class JoiningCodeVC: UIViewController {
         tabBar.navigationController?.navigationBar.prefersLargeTitles = true
         tabBar.navigationItem.setHidesBackButton(true, animated: true)
         
-        tabBar.title = "Session: \(code)"
+
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         navigationController?.pushViewController(tabBar, animated: true)
