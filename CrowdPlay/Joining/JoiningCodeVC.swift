@@ -86,7 +86,7 @@ class JoiningCodeVC: UIViewController {
         queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue"), selectedImage: nil)
         addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong"), selectedImage: nil)
 
-        addSongVC.queueVCInstance = queueVC
+//        addSongVC.queueVCInstance = queueVC
         
         //embed the vcs in nav controllers to get the search bar and titles
         let addSongNav = UINavigationController(rootViewController: addSongVC)

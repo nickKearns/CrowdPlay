@@ -22,18 +22,17 @@ class AddSongVC: UIViewController {
     
     
     var isHost: Bool = false
-    
+
     var ref = Database.database().reference()
 
-    
-    var queueVCInstance: QueueVC?
+
+//    var queueVCInstance: QueueVC?
     
     var offset: Int = 0
     
     var trackItems: [Item] = [] {
         didSet {
             tableView.reloadData()
-            queueNewSongs()
         }
     }
     
@@ -149,11 +148,6 @@ class AddSongVC: UIViewController {
     }
     
     
-    func queueNewSongs() {
-        
-        
-        
-    }
     
     func getTracks() {
         
@@ -195,19 +189,6 @@ class AddSongVC: UIViewController {
             make.right.equalToSuperview()
         }
         
-//        if self.isHost == true {
-//        
-//            let playBackView = PlayBackView()
-//            self.view.addSubview(playBackView)
-//            playBackView.snp.makeConstraints { (make) in
-//                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-//                make.width.equalToSuperview()
-//                make.height.equalToSuperview().multipliedBy(0.10)
-//                
-//            }
-//            
-//            
-//        }
         
         
         

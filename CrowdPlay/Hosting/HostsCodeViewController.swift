@@ -14,6 +14,8 @@ class HostsCodeViewController: UIViewController {
     
     var ref = Database.database().reference()
     
+    
+    
     var sessionInstance: FirebaseDatabase.DatabaseReference?
     var sessionID: String?
     var sessionName: String?
@@ -24,13 +26,13 @@ class HostsCodeViewController: UIViewController {
         l.textAlignment = .center
         l.backgroundColor = .clear
         l.font = UIFont(name: "Avenir Heavy", size: 20)
-         
+        
         return l
     }()
     
     let inputTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Session Code"
+        tf.placeholder = "Session Name"
         tf.backgroundColor = .clear
         tf.layer.borderColor = CGColor(red: 0, green: 0, blue: 1, alpha: 1)
         tf.layer.borderWidth = 3
@@ -46,10 +48,6 @@ class HostsCodeViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
         inputTextField.delegate = self
-        
-//        self.ref.child(self.sessionID!).childByAutoId().setValue(itemData)
-//        self.ref.childByAutoId().setValue("New Session")
-//        self.sessionID = self.ref.childByAutoId().key
         
         
         setupUI()
@@ -78,6 +76,16 @@ class HostsCodeViewController: UIViewController {
         
     }
     
+    
+    @objc func shareButtonTapped() {
+        
+        let shareCodeVC = ShareCodeVC(sessionID: self.sessionID!)
+        present(shareCodeVC, animated: true, completion: nil)
+        shareCodeVC.passSessionID(sessionID: self.sessionID!)
+        
+    }
+    
+    
     func showMainView(sessionId: String, sessionName: String) {
         
         //add the session code to the db
@@ -100,7 +108,7 @@ class HostsCodeViewController: UIViewController {
         queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
         addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong"), selectedImage: nil)
 
-        addSongVC.queueVCInstance = queueVC
+//        addSongVC.queueVCInstance = queueVC
         
         //embed the vcs in nav controllers to get the search bar and titles
         let addSongNav = UINavigationController(rootViewController: addSongVC)
@@ -116,6 +124,9 @@ class HostsCodeViewController: UIViewController {
         tabBar.viewControllers = [addSongNav, queueNav]
         
         tabBar.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        tabBar.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target: self, action: #selector(shareButtonTapped))
+        
         tabBar.navigationItem.setHidesBackButton(true, animated: true)
         
         tabBar.title = "Session: \(self.sessionName!)"
@@ -126,7 +137,6 @@ class HostsCodeViewController: UIViewController {
         let playBackView = PlayBackView()
         tabBar.view.addSubview(playBackView)
         playBackView.snp.makeConstraints { (make) in
-//            make.bottom.equalTo(tabBar.view.safeAreaLayoutGuide.snp.bottom)
             make.bottom.equalTo(tabBar.tabBar.snp.top)
             make.width.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.10)
