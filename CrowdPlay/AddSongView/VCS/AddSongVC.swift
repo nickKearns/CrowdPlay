@@ -134,6 +134,8 @@ class AddSongVC: UIViewController {
     }()
     
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
@@ -218,6 +220,21 @@ class AddSongVC: UIViewController {
         tableView.dataSource = self
         tableView.register(TrackTableViewCell.self, forCellReuseIdentifier: "TrackTableViewCell")
         
+    }
+    
+    
+    func presentAlertController(item: Item) {
+        
+        let alertController = UIAlertController(title: "Add to queue?", message: nil, preferredStyle: .alert)
+        
+        let action1 = UIAlertAction(title: "Add \(item.name) to the queue?", style: .default, handler: { (action:UIAlertAction) in
+            self.sendTrackToFireBase(item: item)
+        })
+        let action2 = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        present(alertController, animated: true, completion: nil)
     }
     
     
@@ -389,9 +406,11 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
         let itemAtIndexPath = trackItems[indexPath.row]
 //        updateQueue(item: itemAtIndexPath)
         
-        sendTrackToFireBase(item: itemAtIndexPath)
+        presentAlertController(item: itemAtIndexPath)
         
-        let trackURI = itemAtIndexPath.uri
+//        sendTrackToFireBase(item: itemAtIndexPath)
+        
+//        let trackURI = itemAtIndexPath.uri
         
         
 

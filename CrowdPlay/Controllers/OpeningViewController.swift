@@ -15,15 +15,22 @@ class OpeningViewController: UIViewController {
     let mainLabel: UILabel = {
         let l = UILabel()
         l.textAlignment = .center
-        l.textColor = .white
         l.backgroundColor = .clear
         l.text = """
                 Host a Session or
                 Join a Session
                 """
         l.numberOfLines = 0
-        l.layer.cornerRadius = 10
         l.font = UIFont(name: "Avenir Heavy", size: 25)
+        
+        return l
+    }()
+    
+    let appNameLabel: UILabel = {
+        let l = UILabel()
+        l.textAlignment = .center
+        l.text = "QShare!"
+        l.font = UIFont(name: "Avenir Heavy", size: 50)
         
         return l
     }()
@@ -49,7 +56,7 @@ class OpeningViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLabel()
+        setupLabels()
         setupButtons()
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.view.backgroundColor = .systemBackground
@@ -58,21 +65,31 @@ class OpeningViewController: UIViewController {
     
     
     func fetchSpotifyToken() {
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+//        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         navigationController?.present(LoginVC(), animated: true, completion: nil)
         
     }
     
     
-    func setupLabel() {
+    func setupLabels() {
         self.view.addSubview(mainLabel)
         mainLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(100)
+            make.centerY.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.75)
             make.height.equalToSuperview().multipliedBy(0.10)
         }
+        
+        self.view.addSubview(appNameLabel)
+        appNameLabel.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.bottom.equalTo(mainLabel.snp.top)
+            make.height.equalToSuperview().multipliedBy(0.20)
+            
+        }
+        
     }
     
     
@@ -88,7 +105,7 @@ class OpeningViewController: UIViewController {
         
         self.view.addSubview(stackView)
         stackView.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
+            make.top.equalTo(mainLabel.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.75)
         }

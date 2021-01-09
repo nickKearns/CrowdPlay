@@ -23,6 +23,8 @@ class TrackTableViewCell: UITableViewCell {
     let artistLabel: UILabel = {
         let l = UILabel()
         l.textAlignment = .left
+        l.lineBreakMode = .byTruncatingMiddle
+        l.numberOfLines = 1
         
         return l
     }()
@@ -65,6 +67,7 @@ class TrackTableViewCell: UITableViewCell {
         artistLabel.snp.makeConstraints { (make) in
             make.right.equalToSuperview().offset(-8).priority(.low)
             make.centerY.equalToSuperview()
+            make.width.lessThanOrEqualToSuperview().multipliedBy(0.40).priority(.high)
             
         }
         self.addSubview(titleLabel)

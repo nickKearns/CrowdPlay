@@ -44,7 +44,7 @@ class JoiningCodeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         inputTextField.delegate = self
-        self.view.backgroundColor = .systemGray3
+        self.view.backgroundColor = .systemBackground
         setupUI()
         
     }
