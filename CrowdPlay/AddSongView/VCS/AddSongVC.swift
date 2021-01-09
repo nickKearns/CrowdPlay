@@ -195,19 +195,19 @@ class AddSongVC: UIViewController {
             make.right.equalToSuperview()
         }
         
-        if self.isHost == true {
-        
-            let playBackView = PlayBackView()
-            self.view.addSubview(playBackView)
-            playBackView.snp.makeConstraints { (make) in
-                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-                make.width.equalToSuperview()
-                make.height.equalToSuperview().multipliedBy(0.10)
-                
-            }
-            
-            
-        }
+//        if self.isHost == true {
+//        
+//            let playBackView = PlayBackView()
+//            self.view.addSubview(playBackView)
+//            playBackView.snp.makeConstraints { (make) in
+//                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+//                make.width.equalToSuperview()
+//                make.height.equalToSuperview().multipliedBy(0.10)
+//                
+//            }
+//            
+//            
+//        }
         
         
         

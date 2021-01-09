@@ -117,7 +117,7 @@ class PlayBackView: UIView  {
         
         
         
-
+        
         if self.isPlaying == 1 {
         
             APIRouter.shared.pauseRequest(completion: { result in

@@ -181,9 +181,7 @@ class APIRouter {
                     print("success \(success)")
                 case .failure(let error):
                     print(error)
-                default:
-                    print("here is where the 204 should happen")
-                    
+                
                 
                 }
                 

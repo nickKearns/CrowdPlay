@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 
 class JoiningCodeVC: UIViewController {
@@ -114,10 +115,31 @@ class JoiningCodeVC: UIViewController {
 extension JoiningCodeVC: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let code = textField.text ?? ""
-    
+        // if code is empty there needs to be a non nil string
+        let code = textField.text ?? "blank"
         
-        showMainView(code: code)
+        
+        let ref = Database.database().reference()
+        
+        ref.child(code).child("Session Name").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() {
+                print(snapshot)
+                self.showMainView(code: code)
+            }
+            else {
+                let alert = UIAlertController(title: "Session Not Found", message: "Session not found", preferredStyle: .alert)
+                let action1 = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+                alert.addAction(action1)
+                self.present(alert, animated: true, completion: nil)
+                textField.resignFirstResponder()
+                textField.text = ""
+            }
+            
+        })
+            
+        
+        
+        
         
         return true
     }

@@ -100,9 +100,9 @@ class QueueVC: UIViewController {
         
         self.navigationItem.title = "Queue"
         setupTable()
-        if self.isHost == true {
-            setupPlayBackView()
-        }
+//        if self.isHost == true {
+//            setupPlayBackView()
+//        }
     }
 
     
@@ -274,7 +274,7 @@ extension QueueVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemote
     }
     
     func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
-        print(error)
+        print(error!)
         let loginVC = LoginVC()
         navigationController?.pushViewController(loginVC, animated: true)
     }

@@ -93,6 +93,9 @@ class HostsCodeViewController: UIViewController {
         
         let tabBar = UITabBarController()
 
+        
+        
+        
         //give the vc's their respective images and titles
         queueVC.tabBarItem = UITabBarItem(title: "Queue", image: UIImage(named: "queue.png"), selectedImage: nil)
         addSongVC.tabBarItem = UITabBarItem(title: "Add Songs", image: UIImage(named: "addSong"), selectedImage: nil)
@@ -118,6 +121,18 @@ class HostsCodeViewController: UIViewController {
         tabBar.title = "Session: \(self.sessionName!)"
         
         self.navigationItem.setHidesBackButton(true, animated: true)
+        
+        
+        let playBackView = PlayBackView()
+        tabBar.view.addSubview(playBackView)
+        playBackView.snp.makeConstraints { (make) in
+//            make.bottom.equalTo(tabBar.view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(tabBar.tabBar.snp.top)
+            make.width.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.10)
+            
+        }
+        
         navigationController?.pushViewController(tabBar, animated: true)
         
     }

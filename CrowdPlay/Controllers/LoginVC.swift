@@ -81,7 +81,7 @@ class LoginVC: UIViewController {
         
         setupButton()
         
-        self.view.backgroundColor = .systemGray3
+        self.view.backgroundColor = .systemBackground
         
         navigationItem.setHidesBackButton(true, animated: false)
 
@@ -100,7 +100,7 @@ class LoginVC: UIViewController {
     
     //MARK: UI FUNCTIONS
     @objc func signInTapped() {
-        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .streaming, .userModifyPlaybackState, .userReadPlaybackState, .userTopRead, .userReadRecentlyPlayed, ]
+        let scope: SPTScope = [.appRemoteControl, .streaming, .userModifyPlaybackState, .userReadPlaybackState, .userReadRecentlyPlayed]
         
         
         sessionManager.initiateSession(with: scope, options: .default)
