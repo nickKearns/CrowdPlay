@@ -39,7 +39,7 @@ class PlayBackView: UIView  {
         sv.alignment = .center
         sv.distribution = .fillEqually
         
-            
+        
         
         return sv
     }()
@@ -52,7 +52,7 @@ class PlayBackView: UIView  {
     }()
     
     
-
+    
     
     let previousButton: UIButton = {
         let b = UIButton()
@@ -61,8 +61,8 @@ class PlayBackView: UIView  {
         return b
     }()
     
-   
-
+    
+    
     
     
     override init(frame: CGRect) {
@@ -78,7 +78,7 @@ class PlayBackView: UIView  {
         fatalError("init(coder:) has not been implemented")
     }
     
-  
+    
     func setupUI() {
         self.addSubview(stackView)
         stackView.addArrangedSubview(previousButton)
@@ -119,7 +119,7 @@ class PlayBackView: UIView  {
         
         
         if self.isPlaying == 1 {
-        
+            
             APIRouter.shared.pauseRequest(completion: { result in
                 switch result {
                 case .success(let any):

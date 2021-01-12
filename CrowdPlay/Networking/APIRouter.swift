@@ -7,12 +7,49 @@
 
 import Foundation
 import Alamofire
+import CommonCrypto
+import AuthenticationServices
 
 
 
 
 class APIRouter {
     
+    
+    var verifier: String = ""
+    
+    //MARK: These two functions were taken from https://docs.cotter.app/sdk-reference/api-for-other-mobile-apps/api-for-mobile-apps#step-1-create-a-code-verifier
+    
+    func getCodeVerifier() -> String {
+        var buffer = [UInt8](repeating: 0, count: 32)
+        _ = SecRandomCopyBytes(kSecRandomDefault, buffer.count, &buffer)
+        let verifier = Data(bytes: buffer).base64EncodedString()
+            .replacingOccurrences(of: "+", with: "-")
+            .replacingOccurrences(of: "/", with: "_")
+            .replacingOccurrences(of: "=", with: "")
+            .trimmingCharacters(in: .whitespaces)
+        return verifier
+    }
+    
+    func getCodeChallenge() -> String {
+        
+        self.verifier = getCodeVerifier()
+        
+        guard let verifierData = self.verifier.data(using: String.Encoding.utf8) else { return "error" }
+            var buffer = [UInt8](repeating: 0, count:Int(CC_SHA256_DIGEST_LENGTH))
+     
+            verifierData.withUnsafeBytes {
+                CC_SHA256($0.baseAddress, CC_LONG(verifierData.count), &buffer)
+            }
+        let hash = Data(_: buffer)
+        print(hash)
+        let challenge = hash.base64EncodedData()
+        return String(decoding: challenge, as: UTF8.self)
+            .replacingOccurrences(of: "+", with: "-")
+            .replacingOccurrences(of: "/", with: "_")
+            .replacingOccurrences(of: "=", with: "")
+            .trimmingCharacters(in: .whitespaces)
+    }
     
     static let shared: APIRouter = {
         let shared = APIRouter()
@@ -23,15 +60,92 @@ class APIRouter {
     var token: String = ""
     let baseURL: URL
     
+    let authURL: String = "https://accounts.spotify.com/api/token"
     
     private init() {
         baseURL = URL(string: "https://api.spotify.com/v1/")!
         token = getToken()
     }
     
+    func getAuthToken(code: String) {
+
+//        let spotifyAuthKey = "Basic \((Constants.SpotifyClientID + ":" + Constants.clientIdSecret).data(using: .utf8)!.base64EncodedString())"
+
+        let parameters: [String: String] = [
+            "client_id": spotifyClientID,
+            "grant_type": "authorization_code",
+            "code": code,
+            "redirect_uri": redirectURIString,
+            "code_verifier": self.verifier
+        
+        ]
+        
+        AF.request(authURL, method: .post, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: Token.self) { response in
+                switch response.result {
+                case .success(let token):
+                    UserDefaults.standard.setValue(token.access_token, forKey: "access_token")
+                    UserDefaults.standard.setValue(token.expires_in, forKey: String(token.expires_in))
+                    UserDefaults.standard.setValue(token.refresh_token, forKey: "refresh_token")
+                    print(token.access_token)
+                    print(token.expires_in)
+                    print(token.refresh_token)
+                
+                case .failure(let error):
+                    print(error)
+                    
+                }
+                
+            }
+        
+    
+
+    }
+    
+    // https://stackoverflow.com/questions/63482575/spotify-pkce-authorization-flow-returns-code-verifier-was-incorrect
+    
+    
+
+    
+    let authorizeURL: String = "https://accounts.spotify.com/authorize"
+    let spotifyClientID: String = Constants.SpotifyClientID
+    let redirectURIString = Constants.redirectURIString
+    let callBackURL = "QShare"
+    
+    func authRequest(viewController: LoginVC, completion: @escaping (URL?, Error?) -> Void) {
+        
+        let codeChallenge = getCodeChallenge()
+        
+        let scopesAsString = Constants.scopesAsStrings.joined(separator: " ")
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "accounts.spotify.com"
+        components.path = "/authorize"
+        components.queryItems = [
+            URLQueryItem(name: "client_id", value: spotifyClientID),
+            URLQueryItem(name: "response_type", value: "code"),
+            URLQueryItem(name: "redirect_uri", value: redirectURIString),
+            URLQueryItem(name: "code_challenge_method", value: "S256"),
+            URLQueryItem(name: "code_challenge", value: codeChallenge),
+            URLQueryItem(name: "scope", value: scopesAsString)
+        ]
+        let urlString = components.url!.absoluteString
+
+        guard let authURL = URL(string: urlString) else { return }
+        print(authURL)
+        let authSession = ASWebAuthenticationSession(url: authURL, callbackURLScheme: callBackURL, completionHandler: completion)
+        authSession.presentationContextProvider = viewController
+        authSession.prefersEphemeralWebBrowserSession = true
+        authSession.start()
+        
+        
+    }
+    
     
     func getToken() -> String {
-        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {return ""}
+        guard let token = UserDefaults.standard.string(forKey: "access_token") else {return ""}
         return token
     }
     

@@ -9,8 +9,14 @@ import UIKit
 import FirebaseDatabase
 import SnapKit
 import KeychainSwift
+import AuthenticationServices
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, ASWebAuthenticationPresentationContextProviding {
+    
+    
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window!
+    }
     
     //    let keychain = KeychainSwift()
     
@@ -24,7 +30,6 @@ class LoginVC: UIViewController {
     //MARK: UI ELEMENTS
     let signInButton: UIButton = {
         let b = UIButton()
-        //        b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("Sign in with Spotify", for: .normal)
         b.addTarget(self, action: #selector(signInTapped), for: .touchUpInside)
         b.tintColor = .systemBlue
@@ -35,10 +40,10 @@ class LoginVC: UIViewController {
    
     
     
-    var accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+    var accessToken = UserDefaults.standard.string(forKey: "access_token") {
         didSet {
             let defaults = UserDefaults.standard
-            defaults.set(accessToken, forKey: "accessToken")
+            defaults.set(accessToken, forKey: "access_token")
         }
     }
     
@@ -100,11 +105,22 @@ class LoginVC: UIViewController {
     
     //MARK: UI FUNCTIONS
     @objc func signInTapped() {
-        let scope: SPTScope = [.appRemoteControl, .streaming, .userModifyPlaybackState, .userReadPlaybackState, .userReadRecentlyPlayed]
-        
-        
-        sessionManager.initiateSession(with: scope, options: .default)
-        self.dismiss(animated: true, completion: nil)
+//        let scope: SPTScope = [.appRemoteControl, .streaming, .userModifyPlaybackState, .userReadPlaybackState, .userReadRecentlyPlayed]
+//
+        APIRouter.shared.authRequest(viewController: self, completion: { url, error in
+            
+            guard let items = URLComponents(string: url?.absoluteString ?? "")?.queryItems else {return}
+            let code = items[0].value!
+            
+            APIRouter.shared.getAuthToken(code: code)
+            
+            
+            
+            
+        })
+//
+//        sessionManager.initiateSession(with: scope, options: .default)
+//        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -152,14 +168,15 @@ extension LoginVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemote
 
     
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-        appRemote.connectionParameters.accessToken = session.accessToken
-        //        keychain.set(session.accessToken, forKey: "accessToken")
-        defaults.setValue(true, forKey: "loggedIn")
-        let addSongVC = AddSongVC()
-        print("initiating session")
-        print("logged in")
-        navigationController?.pushViewController(homeVC, animated: true)
-        appRemote.connect()
+//        appRemote.connectionParameters.accessToken = session.accessToken
+//        //        keychain.set(session.accessToken, forKey: "accessToken")
+//        defaults.setValue(true, forKey: "loggedIn")
+//        let addSongVC = AddSongVC()
+//        print("initiating session")
+//        print("logged in")
+//        navigationController?.pushViewController(homeVC, animated: true)
+//        appRemote.connect()
+        print("")
     }
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {

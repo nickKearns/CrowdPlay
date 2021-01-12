@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0128568F25787BD700B537C6 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01285687257875A800B537C6 /* APIRouter.swift */; };
 		012BDB4525647F330035D6FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDB4425647F330035D6FB /* Constants.swift */; };
 		012BDBAC2564C7220035D6FB /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDBAB2564C7220035D6FB /* Model.swift */; };
 		012BDBC82564CF6F0035D6FB /* Tracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BDBC72564CF6F0035D6FB /* Tracks.swift */; };
@@ -27,8 +26,10 @@
 		015B1FDB25AA41E000AD50F1 /* HostsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0157ADB3259D4349000A8594 /* HostsCodeViewController.swift */; };
 		015B1FE825AA436B00AD50F1 /* TabBarViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015B1FE725AA436B00AD50F1 /* TabBarViewControllerExtension.swift */; };
 		015B1FED25AA4A3C00AD50F1 /* ShareCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015B1FEC25AA4A3C00AD50F1 /* ShareCodeVC.swift */; };
+		015B206725AA82FC00AD50F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 015B206625AA82FC00AD50F1 /* GoogleService-Info.plist */; };
+		015B209C25AA938E00AD50F1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015B209B25AA938E00AD50F1 /* Token.swift */; };
+		015B20A325ACD58B00AD50F1 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01285687257875A800B537C6 /* APIRouter.swift */; };
 		01870DB9258046C900970B89 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0128568225783F5F00B537C6 /* TrackTableViewCell.swift */; };
-		01870DFB2581CEFB00970B89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01870DFA2581CEFB00970B89 /* GoogleService-Info.plist */; };
 		01870E6B2583EE8800970B89 /* QueueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01870E3D2583D17D00970B89 /* QueueVC.swift */; };
 		595B35736B0019A135A3CA81 /* Pods_CrowdPlay_CrowdPlayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B677AF2CC8DA572209C2F4 /* Pods_CrowdPlay_CrowdPlayUITests.framework */; };
 		76EF438B73F0F3E875F1E4F9 /* Pods_CrowdPlayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79635EF22624B859A13E68D4 /* Pods_CrowdPlayTests.framework */; };
@@ -81,7 +82,8 @@
 		0157ADB3259D4349000A8594 /* HostsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostsCodeViewController.swift; sourceTree = "<group>"; };
 		015B1FE725AA436B00AD50F1 /* TabBarViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewControllerExtension.swift; sourceTree = "<group>"; };
 		015B1FEC25AA4A3C00AD50F1 /* ShareCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCodeVC.swift; sourceTree = "<group>"; };
-		01870DFA2581CEFB00970B89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		015B206625AA82FC00AD50F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		015B209B25AA938E00AD50F1 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		01870E3D2583D17D00970B89 /* QueueVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueVC.swift; sourceTree = "<group>"; };
 		17BFDCEC59B161A1A0BD5491 /* Pods-CrowdPlayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdPlayTests.debug.xcconfig"; path = "Target Support Files/Pods-CrowdPlayTests/Pods-CrowdPlayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		38B962C6A50C2C3466A009BB /* Pods-CrowdPlay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdPlay.release.xcconfig"; path = "Target Support Files/Pods-CrowdPlay/Pods-CrowdPlay.release.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			children = (
 				012BDBAB2564C7220035D6FB /* Model.swift */,
 				012BDBC72564CF6F0035D6FB /* Tracks.swift */,
+				015B209B25AA938E00AD50F1 /* Token.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				FF45B9D6F4BF7F5EEED61034 /* Frameworks */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		014EC1A42563019F00AAE65E /* Products */ = {
 			isa = PBXGroup;
@@ -196,10 +200,10 @@
 				012BDB542564909F0035D6FB /* Controllers */,
 				014EC1A62563019F00AAE65E /* AppDelegate.swift */,
 				014EC1A82563019F00AAE65E /* SceneDelegate.swift */,
+				015B206625AA82FC00AD50F1 /* GoogleService-Info.plist */,
 				012BDB4425647F330035D6FB /* Constants.swift */,
 				014EC1AF256301A200AAE65E /* Assets.xcassets */,
 				014EC1B1256301A200AAE65E /* LaunchScreen.storyboard */,
-				01870DFA2581CEFB00970B89 /* GoogleService-Info.plist */,
 				014EC1B4256301A200AAE65E /* Info.plist */,
 				014EC2162564678300AAE65E /* SpotifyiOS.framework */,
 			);
@@ -430,7 +434,7 @@
 			files = (
 				014EC1B3256301A200AAE65E /* LaunchScreen.storyboard in Resources */,
 				014EC1B0256301A200AAE65E /* Assets.xcassets in Resources */,
-				01870DFB2581CEFB00970B89 /* GoogleService-Info.plist in Resources */,
+				015B206725AA82FC00AD50F1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				015B1FDB25AA41E000AD50F1 /* HostsCodeViewController.swift in Sources */,
+				015B20A325ACD58B00AD50F1 /* APIRouter.swift in Sources */,
 				014EC1AB2563019F00AAE65E /* LoginVC.swift in Sources */,
 				0154A54A25A9531500E7E014 /* Colors.swift in Sources */,
 				01870E6B2583EE8800970B89 /* QueueVC.swift in Sources */,
@@ -566,7 +571,7 @@
 				012BDBAC2564C7220035D6FB /* Model.swift in Sources */,
 				015B1FE825AA436B00AD50F1 /* TabBarViewControllerExtension.swift in Sources */,
 				0154A53B25A1566600E7E014 /* PlayBackView.swift in Sources */,
-				0128568F25787BD700B537C6 /* APIRouter.swift in Sources */,
+				015B209C25AA938E00AD50F1 /* Token.swift in Sources */,
 				012BDBC82564CF6F0035D6FB /* Tracks.swift in Sources */,
 				014EC1A72563019F00AAE65E /* AppDelegate.swift in Sources */,
 				0154A53525A0524800E7E014 /* JoiningCodeVC.swift in Sources */,
@@ -756,7 +761,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nickKearns.CrowdPlay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nickKearns.QShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CrowdPlay-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -783,7 +788,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nickKearns.CrowdPlay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nickKearns.QShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CrowdPlay-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

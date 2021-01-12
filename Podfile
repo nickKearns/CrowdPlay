@@ -7,9 +7,7 @@ target 'CrowdPlay' do
 
   # Pods for CrowdPlay
 
-  pod 'Firebase/Core'
   pod 'Firebase/Database'
-  pod 'Firebase/Auth'
   pod 'SnapKit'
   pod 'KeychainSwift'
   pod 'Alamofire', '~> 5.2'

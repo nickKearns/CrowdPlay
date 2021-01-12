@@ -33,11 +33,11 @@ class QueueVC: UIViewController {
     let defaults = UserDefaults.standard
     
     let clientID = Constants.SpotifyClientID
-    let redirectURI = Constants.spotifyRedirectURI
+//    let redirectURI = Constants.spotifyRedirectURI
     
-    var accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+    var accessToken = UserDefaults.standard.string(forKey: "access_token") {
         didSet {
-            UserDefaults.standard.setValue(accessToken, forKey: "accessToken")
+            UserDefaults.standard.setValue(accessToken, forKey: "access_token")
         }
     }
 //    var responseTypeCode: String? {

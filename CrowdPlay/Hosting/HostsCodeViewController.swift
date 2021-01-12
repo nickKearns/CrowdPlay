@@ -17,8 +17,8 @@ class HostsCodeViewController: UIViewController {
     
     
     var sessionInstance: FirebaseDatabase.DatabaseReference?
-    var sessionID: String?
-    var sessionName: String?
+    var sessionID: String = ""
+    var sessionName: String = ""
     
     let descriptionLabel: UILabel = {
         let l = UILabel()
@@ -79,18 +79,29 @@ class HostsCodeViewController: UIViewController {
     
     @objc func shareButtonTapped() {
         
-        let shareCodeVC = ShareCodeVC(sessionID: self.sessionID!)
+        let shareCodeVC = ShareCodeVC()
+//        let shorterCode = getShorterCode(sessionID: self.sessionID)
         present(shareCodeVC, animated: true, completion: nil)
-        shareCodeVC.passSessionID(sessionID: self.sessionID!)
+        shareCodeVC.passSessionID(sessionID: self.sessionID)
         
     }
     
     
+    func getShorterCode(sessionID: String) -> String {
+        
+        let length = sessionID.count
+        let last4 = String(sessionID.suffix(from: String.Index(encodedOffset: length-4)))
+        self.sessionID = last4
+        
+        return last4
+        
+    }
+    
     func showMainView(sessionId: String, sessionName: String) {
         
         //add the session code to the db
-        self.ref.child(sessionID!).setValue("session")
-        self.ref.child(sessionID!).child("Session Name").setValue(self.sessionName!)
+        self.ref.child(sessionID).setValue("session")
+        self.ref.child(sessionID).child("Session Name").setValue(self.sessionName)
         
         
         
@@ -114,10 +125,14 @@ class HostsCodeViewController: UIViewController {
         let addSongNav = UINavigationController(rootViewController: addSongVC)
         let queueNav = UINavigationController(rootViewController: queueVC)
         
-        addSongVC.sessionID = self.sessionID!
-        addSongVC.sessionName = self.sessionName!
-        queueVC.sessionID = self.sessionID!
-        queueVC.sessionName = self.sessionName!
+        
+//        let shorterCode = getShorterCode(sessionID: sessionId)
+        self.sessionID = sessionId
+        
+        addSongVC.sessionID = self.sessionID
+        addSongVC.sessionName = self.sessionName
+        queueVC.sessionID = self.sessionID
+        queueVC.sessionName = self.sessionName
         
         
         // add the vc's to the tab bar
@@ -129,7 +144,7 @@ class HostsCodeViewController: UIViewController {
         
         tabBar.navigationItem.setHidesBackButton(true, animated: true)
         
-        tabBar.title = "Session: \(self.sessionName!)"
+        tabBar.title = "Session: \(self.sessionName)"
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
@@ -156,10 +171,10 @@ extension HostsCodeViewController: UITextFieldDelegate {
         let name = inputTextField.text ?? ""
         
         self.sessionInstance = self.ref.childByAutoId()
-        self.sessionID = self.sessionInstance?.key
+        self.sessionID = (self.sessionInstance?.key)!
         self.sessionName = name
         
-        showMainView(sessionId: self.sessionID!, sessionName: self.sessionName!)
+        showMainView(sessionId: self.sessionID, sessionName: self.sessionName)
         
         return true
     }

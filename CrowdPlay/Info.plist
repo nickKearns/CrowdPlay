@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>QShare</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,10 +24,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.nickKearns.CrowdPlay</string>
+			<string>com.nickKearns.QShare</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>CrowdPlay</string>
+				<string>QShare</string>
 			</array>
 		</dict>
 	</array>

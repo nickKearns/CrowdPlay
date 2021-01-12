@@ -14,6 +14,8 @@ class JoiningCodeVC: UIViewController {
     
     var sessionID: String = ""
     
+    let ref = Database.database().reference()
+    
     let mainLabel: UILabel = {
         let l = UILabel()
         l.text = """
@@ -75,10 +77,39 @@ class JoiningCodeVC: UIViewController {
         
     }
     
+    func getShorterCode(sessionID: String) -> String {
+        
+        let length = sessionID.count
+        let first5 = String(sessionID.prefix(5))
+        self.sessionID = first5
+        
+        return first5
+        
+    }
+    
+    
+    @objc func shareButtonTapped() {
+        
+//        let shorterCode = getShorterCode(sessionID: self.sessionID)
+        
+        let shareCodeVC = ShareCodeVC()
+        present(shareCodeVC, animated: true, completion: nil)
+        shareCodeVC.passSessionID(sessionID: self.sessionID)
+        
+    }
+    
     
     func showMainView(code: String) {
         let queueVC = QueueVC()
         let addSongVC = AddSongVC()
+        
+        self.sessionID = code
+        
+        //search for the database instance that ends in the inputed code
+        
+//        let ref = Database.database().reference().queryEnding(atValue: code).ref
+        
+        
         
         let tabBar = UITabBarController()
 
@@ -96,7 +127,9 @@ class JoiningCodeVC: UIViewController {
         
         queueVC.sessionID = code
         
-        let ref = Database.database().reference().child(code).child("Session Name").observe(.value, with: { (snapshot) in
+        tabBar.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target: self, action: #selector(shareButtonTapped))
+        
+        self.ref.child(code).child("Session Name").observe(.value, with: { (snapshot) in
             guard let sessionName = snapshot.value else {return}
             tabBar.title = "Session: \(sessionName)"
             
@@ -108,7 +141,7 @@ class JoiningCodeVC: UIViewController {
         tabBar.navigationController?.navigationBar.prefersLargeTitles = true
         tabBar.navigationItem.setHidesBackButton(true, animated: true)
         
-
+        
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         navigationController?.pushViewController(tabBar, animated: true)
@@ -125,7 +158,11 @@ extension JoiningCodeVC: UITextFieldDelegate {
         let code = textField.text ?? "blank"
         
         
-        let ref = Database.database().reference()
+//        let ref = Database.database().reference()
+        
+        let fullCode = ref.queryOrderedByKey().queryStarting(atValue: code).queryEnding(atValue: "\(code)\\utf8ff")
+        print(fullCode)
+//        print(fullCode)
         
         ref.child(code).child("Session Name").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
