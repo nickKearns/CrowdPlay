@@ -48,6 +48,7 @@ class JoiningCodeVC: UIViewController {
         super.viewDidLoad()
         inputTextField.delegate = self
         self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.isHidden = false
         setupUI()
         
     }

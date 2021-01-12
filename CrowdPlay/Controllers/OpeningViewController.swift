@@ -58,9 +58,11 @@ class OpeningViewController: UIViewController {
         super.viewDidLoad()
         setupLabels()
         setupButtons()
-        self.navigationItem.setHidesBackButton(true, animated: false)
+        
+        self.navigationController?.navigationBar.isHidden = true
+        
         self.view.backgroundColor = .systemBackground
-        fetchSpotifyToken()
+//        fetchSpotifyToken()
     }
     
     

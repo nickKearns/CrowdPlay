@@ -60,16 +60,17 @@ class APIRouter {
     var token: String = ""
     let baseURL: URL
     
-    let authURL: String = "https://accounts.spotify.com/api/token"
+    let tokenURL: String = "https://accounts.spotify.com/api/token"
     
     private init() {
         baseURL = URL(string: "https://api.spotify.com/v1/")!
         token = getToken()
     }
     
-    func getAuthToken(code: String) {
+    // https://stackoverflow.com/questions/63482575/spotify-pkce-authorization-flow-returns-code-verifier-was-incorrect
 
-//        let spotifyAuthKey = "Basic \((Constants.SpotifyClientID + ":" + Constants.clientIdSecret).data(using: .utf8)!.base64EncodedString())"
+    func getFirstAuthToken(code: String) {
+
 
         let parameters: [String: String] = [
             "client_id": spotifyClientID,
@@ -80,7 +81,7 @@ class APIRouter {
         
         ]
         
-        AF.request(authURL, method: .post, parameters: parameters)
+        AF.request(tokenURL, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: Token.self) { response in
                 switch response.result {
@@ -103,7 +104,37 @@ class APIRouter {
 
     }
     
-    // https://stackoverflow.com/questions/63482575/spotify-pkce-authorization-flow-returns-code-verifier-was-incorrect
+    func refreshToken() {
+        
+        guard let refreshToken = UserDefaults.standard.string(forKey: "refresh_token") else {return}
+        
+        let parameters: [String: String] = [
+            "client_id": spotifyClientID,
+            "grant_type": "refresh_token",
+            "refresh_token": refreshToken
+        ]
+        
+        AF.request(tokenURL, method: .post, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: Token.self) { response in
+                switch response.result {
+                case .success(let token):
+                    UserDefaults.standard.setValue(token.access_token, forKey: "access_token")
+                    UserDefaults.standard.setValue(token.expires_in, forKey: String(token.expires_in))
+                    UserDefaults.standard.setValue(token.refresh_token, forKey: "refresh_token")
+                    print(token.access_token)
+                    print(token.expires_in)
+                    print(token.refresh_token)
+                    
+                case .failure(let error):
+                    print(error)
+                }
+                
+                
+            }
+        
+        
+    }
     
     
 
@@ -327,59 +358,6 @@ class APIRouter {
         
         
     }
-    
-//    func fetchSpotifyToken(completion: @escaping ([String: Any]?, Error?) -> Void) {
-//        let url = URL(string: "https://accounts.spotify.com/api/token")!
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        let spotifyAuthKey = "Basic \((clientID + ":" + Constants.clientIdSecret).data(using: .utf8)!.base64EncodedString())"
-//        request.allHTTPHeaderFields = ["Authorization": spotifyAuthKey,
-//                                       "Content-Type": "application/x-www-form-urlencoded"]
-//        do {
-//            var requestBodyComponents = URLComponents()
-//            let scopesAsString = Constants.scopesAsStrings.joined(separator: " ")
-//            requestBodyComponents.queryItems = [
-//                URLQueryItem(name: "client_id", value: clientID),
-//                URLQueryItem(name: "grant_type", value: "authorization_code"),
-//                URLQueryItem(name: "code", value: responseTypeCode!),
-//                URLQueryItem(name: "redirect_uri", value: redirectURI.absoluteString),
-//                URLQueryItem(name: "code_verifier", value: ""),
-//                URLQueryItem(name: "scope", value: scopesAsString),
-//            ]
-//            request.httpBody = requestBodyComponents.query?.data(using: .utf8)
-//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//                guard let data = data,                            // is there data
-//                      let response = response as? HTTPURLResponse,  // is there HTTP response
-//                      (200 ..< 300) ~= response.statusCode,         // is statusCode 2XX
-//                      error == nil else {                           // was there no error, otherwise ...
-//                    print("Error fetching token \(error?.localizedDescription ?? "")")
-//                    return completion(nil, error)
-//                }
-//                let responseObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
-//                print("Access Token Dictionary=", responseObject ?? "")
-//                completion(responseObject, nil)
-//            }
-//            task.resume()
-//        } catch {
-//            print("Error JSON serialization \(error.localizedDescription)")
-//        }
-//    }
-//    
-//    func getToken() {
-//        
-//        let clientID = Constants.SpotifyClientID
-//        let redirectURI = Constants.spotifyRedirectURI
-//        
-//        let url = "https://accounts.spotify.com/api.token"
-//        
-//        
-//        
-//    }
-    
-    
-    
-    
-    
     
     
 }

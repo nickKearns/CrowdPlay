@@ -47,6 +47,7 @@ class HostsCodeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.isHidden = false
         inputTextField.delegate = self
         
         

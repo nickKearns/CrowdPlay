@@ -24,7 +24,7 @@ class LoginVC: UIViewController, ASWebAuthenticationPresentationContextProviding
     
     
     let homeVC = AddSongVC()
-
+    
     
     
     //MARK: UI ELEMENTS
@@ -37,45 +37,13 @@ class LoginVC: UIViewController, ASWebAuthenticationPresentationContextProviding
         return b
     }()
     
-   
-    
-    
-    var accessToken = UserDefaults.standard.string(forKey: "access_token") {
-        didSet {
-            let defaults = UserDefaults.standard
-            defaults.set(accessToken, forKey: "access_token")
-        }
-    }
     
     
     
-    
-    //MARK: SPOTIFY VARIABLES
-    lazy var configuration: SPTConfiguration = {
-        let configuration = SPTConfiguration(clientID: Constants.SpotifyClientID, redirectURL:  Constants.spotifyRedirectURI)
-        // Set the playURI to a non-nil value so that Spotify plays music after authenticating and App Remote can connect
-        // otherwise another app switch will be required
-        configuration.playURI = ""
-        
-        // Set these url's to your backend which contains the secret to exchange for an access token
-        // You can use the provided ruby script spotify_token_swap.rb for testing purposes
-        configuration.tokenSwapURL = URL(string: "http://localhost:1234/swap")
-        configuration.tokenRefreshURL = URL(string: "http://localhost:1234/refresh")
-        return configuration
-    }()
+    var accessToken = UserDefaults.standard.string(forKey: "access_token")
     
     
-    lazy var sessionManager: SPTSessionManager = {
-        let manager = SPTSessionManager(configuration: configuration, delegate: self)
-        return manager
-    }()
-    lazy var appRemote: SPTAppRemote = {
-        let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
-        appRemote.delegate = self
-        return appRemote
-    }()
     
-    private var lastPlayerState: SPTAppRemotePlayerState?
     
     
     
@@ -89,7 +57,7 @@ class LoginVC: UIViewController, ASWebAuthenticationPresentationContextProviding
         self.view.backgroundColor = .systemBackground
         
         navigationItem.setHidesBackButton(true, animated: false)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,22 +73,17 @@ class LoginVC: UIViewController, ASWebAuthenticationPresentationContextProviding
     
     //MARK: UI FUNCTIONS
     @objc func signInTapped() {
-//        let scope: SPTScope = [.appRemoteControl, .streaming, .userModifyPlaybackState, .userReadPlaybackState, .userReadRecentlyPlayed]
-//
         APIRouter.shared.authRequest(viewController: self, completion: { url, error in
             
             guard let items = URLComponents(string: url?.absoluteString ?? "")?.queryItems else {return}
             let code = items[0].value!
             
-            APIRouter.shared.getAuthToken(code: code)
+            APIRouter.shared.getFirstAuthToken(code: code)
             
             
             
             
         })
-//
-//        sessionManager.initiateSession(with: scope, options: .default)
-//        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -138,66 +101,9 @@ class LoginVC: UIViewController, ASWebAuthenticationPresentationContextProviding
     }
     
     
-    
-    func checkForConnection() {
-        if appRemote.isConnected {
-            let addSongVC = AddSongVC()
-            navigationController?.pushViewController(addSongVC, animated: true)
-        }
-        else {
-            //do nothing
-        }
-    }
-    
-    
 }
 
 
-extension LoginVC: SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
-    func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
-        appRemote.playerAPI?.delegate = self
-        
-        defaults.setValue(true, forKey: "isLoggedIn")
-        appRemote.playerAPI?.subscribe(toPlayerState: { (success, error) in
-            if let error = error {
-                print("error")
-            }
-            
-        })
-    }
 
-    
-    func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-//        appRemote.connectionParameters.accessToken = session.accessToken
-//        //        keychain.set(session.accessToken, forKey: "accessToken")
-//        defaults.setValue(true, forKey: "loggedIn")
-//        let addSongVC = AddSongVC()
-//        print("initiating session")
-//        print("logged in")
-//        navigationController?.pushViewController(homeVC, animated: true)
-//        appRemote.connect()
-        print("")
-    }
-    
-    func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
-        print("")
-        
-        
-    }
-    
-    func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
-        print("")
-    }
-    
-    func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
-        print("")
-    }
-    
-    func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
-        print("player state changed")
-        
-    }
-    
-    
-    
-}
+
+
