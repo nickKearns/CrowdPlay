@@ -11,7 +11,8 @@ import Foundation
 class PlayBackView: UIView  {
     
     // 1 means that music is being played -1 means it is paused
-    var isPlaying: Int = 1 {
+    //
+    var isPlaying: Int = -1 {
         didSet {
             if isPlaying == 1 {
                 self.pausePlayButton.isSelected = true
@@ -118,7 +119,7 @@ class PlayBackView: UIView  {
         
         
         
-        if self.isPlaying == 1 {
+        if self.isPlaying == -1 {
             
             APIRouter.shared.pauseRequest(completion: { result in
                 switch result {
@@ -149,7 +150,7 @@ class PlayBackView: UIView  {
     
     @objc func skipTapped() {
         
-        self.isPlaying = 1
+        self.isPlaying = -1
         
         APIRouter.shared.skipRequest(completion: { result in
             switch result {
@@ -165,7 +166,7 @@ class PlayBackView: UIView  {
     
     @objc func previousTapped() {
         
-        self.isPlaying = 1
+        self.isPlaying = -1
         
         APIRouter.shared.previousRequest(completion: { result in
             switch result {

@@ -138,9 +138,7 @@ class HostsCodeViewController: UIViewController {
         
         // add the vc's to the tab bar
         tabBar.viewControllers = [addSongNav, queueNav]
-        
-        tabBar.navigationController?.navigationBar.prefersLargeTitles = true
-        
+                
         tabBar.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target: self, action: #selector(shareButtonTapped))
         
         tabBar.navigationItem.setHidesBackButton(true, animated: true)
