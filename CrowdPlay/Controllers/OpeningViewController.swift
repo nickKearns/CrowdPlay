@@ -62,14 +62,24 @@ class OpeningViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         self.view.backgroundColor = .systemBackground
-//        fetchSpotifyToken()
+        fetchSpotifyToken()
     }
     
     
     func fetchSpotifyToken() {
 //        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
-        navigationController?.present(LoginVC(), animated: true, completion: nil)
+        if UserDefaults.standard.string(forKey: "refresh_token") == nil {
+            
+            let loginVC = LoginVC()
+            present(loginVC, animated: true, completion: nil)
+//            openingVC.modalPresentationStyle = .overCurrentContext
+            
+        }
+        
+        
+        
+//        navigationController?.present(LoginVC(), animated: true, completion: nil)
         
     }
     

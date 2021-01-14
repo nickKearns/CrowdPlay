@@ -141,11 +141,13 @@ class HostsCodeViewController: UIViewController {
         
         tabBar.navigationController?.navigationBar.prefersLargeTitles = true
         
-        tabBar.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target: self, action: #selector(shareButtonTapped))
+        tabBar.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target: self, action: #selector(shareButtonTapped))
         
         tabBar.navigationItem.setHidesBackButton(true, animated: true)
         
         tabBar.title = "Session: \(self.sessionName)"
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         

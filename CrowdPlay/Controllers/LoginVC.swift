@@ -79,6 +79,7 @@ class LoginVC: UIViewController, ASWebAuthenticationPresentationContextProviding
             let code = items[0].value!
             
             APIRouter.shared.getFirstAuthToken(code: code)
+            self.dismiss(animated: true, completion: nil)
             
             
             

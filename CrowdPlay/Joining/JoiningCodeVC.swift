@@ -128,7 +128,7 @@ class JoiningCodeVC: UIViewController {
         
         queueVC.sessionID = code
         
-        tabBar.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target: self, action: #selector(shareButtonTapped))
+        tabBar.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target: self, action: #selector(shareButtonTapped))
         
         self.ref.child(code).child("Session Name").observe(.value, with: { (snapshot) in
             guard let sessionName = snapshot.value else {return}
@@ -142,7 +142,8 @@ class JoiningCodeVC: UIViewController {
         tabBar.navigationController?.navigationBar.prefersLargeTitles = true
         tabBar.navigationItem.setHidesBackButton(true, animated: true)
         
-        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         navigationController?.pushViewController(tabBar, animated: true)

@@ -28,37 +28,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             let window = UIWindow(windowScene: windowScene)
             
-            //check if a refresh token exists
-            if UserDefaults.standard.string(forKey: "refresh_token") != nil {
-                
-                APIRouter.shared.refreshToken()
-                let openingVC = OpeningViewController()
-                let navigation = UINavigationController(rootViewController: openingVC)
-                navigation.navigationBar.isHidden = true
-                window.rootViewController = navigation
-                
-                
-                
-                
-            } else {
-                print("must be first time opening app")
-                
-                let navigation = UINavigationController(rootViewController: LoginVC())
-                window.rootViewController = navigation
-                
-                
-            }
+            let openingVC = OpeningViewController()
+            let navigation = UINavigationController(rootViewController: openingVC)
+//                navigation.navigationBar.isHidden = true
+            window.rootViewController = navigation
             
             
+
             
+            APIRouter.shared.refreshToken()
             
            
 
             let accessToken = UserDefaults.standard.string(forKey: "access_token") ?? ""
             
             
-            
-            print(accessToken)
+//            print(accessToken)
 
             
             self.window = window
