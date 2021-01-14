@@ -209,6 +209,36 @@ class APIRouter {
             }
     }
     
+    func getCurrentlyPlaying(completion: @escaping (Result<CurrentlyPlayingResponse, Error>) -> Void) {
+        
+        let currentPlayingURL = "https://api.spotify.com/v1/me/player"
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)"
+        ]
+        
+        AF.request(currentPlayingURL, method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: CurrentlyPlayingResponse.self) { response in
+                switch response.result {
+                case .success(let results):
+                    completion(.success(results))
+                    
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+                
+            }
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
     func playRequest(completion: @escaping (AFResult<Any>) -> Void ) {
         
         let headers: HTTPHeaders = [

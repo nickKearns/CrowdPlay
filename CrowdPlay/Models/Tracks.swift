@@ -7,6 +7,13 @@
 
 import Foundation
 
+struct CurrentlyPlayingResponse: Model, Codable {
+    
+    let item: Item
+    
+    
+}
+
 
 struct TracksResponse: Model, Codable {
     let tracks: Tracks?

@@ -29,6 +29,7 @@
 		015B206725AA82FC00AD50F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 015B206625AA82FC00AD50F1 /* GoogleService-Info.plist */; };
 		015B209C25AA938E00AD50F1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015B209B25AA938E00AD50F1 /* Token.swift */; };
 		015B20A325ACD58B00AD50F1 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01285687257875A800B537C6 /* APIRouter.swift */; };
+		015B20A825AE283300AD50F1 /* CurrentlyPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015B20A725AE283200AD50F1 /* CurrentlyPlayingView.swift */; };
 		01870DB9258046C900970B89 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0128568225783F5F00B537C6 /* TrackTableViewCell.swift */; };
 		01870E6B2583EE8800970B89 /* QueueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01870E3D2583D17D00970B89 /* QueueVC.swift */; };
 		595B35736B0019A135A3CA81 /* Pods_CrowdPlay_CrowdPlayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B677AF2CC8DA572209C2F4 /* Pods_CrowdPlay_CrowdPlayUITests.framework */; };
@@ -84,6 +85,7 @@
 		015B1FEC25AA4A3C00AD50F1 /* ShareCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCodeVC.swift; sourceTree = "<group>"; };
 		015B206625AA82FC00AD50F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		015B209B25AA938E00AD50F1 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		015B20A725AE283200AD50F1 /* CurrentlyPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingView.swift; sourceTree = "<group>"; };
 		01870E3D2583D17D00970B89 /* QueueVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueVC.swift; sourceTree = "<group>"; };
 		17BFDCEC59B161A1A0BD5491 /* Pods-CrowdPlayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdPlayTests.debug.xcconfig"; path = "Target Support Files/Pods-CrowdPlayTests/Pods-CrowdPlayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		38B962C6A50C2C3466A009BB /* Pods-CrowdPlay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdPlay.release.xcconfig"; path = "Target Support Files/Pods-CrowdPlay/Pods-CrowdPlay.release.xcconfig"; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				0154A53A25A1566600E7E014 /* PlayBackView.swift */,
+				015B20A725AE283200AD50F1 /* CurrentlyPlayingView.swift */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				015B1FDB25AA41E000AD50F1 /* HostsCodeViewController.swift in Sources */,
+				015B20A825AE283300AD50F1 /* CurrentlyPlayingView.swift in Sources */,
 				015B20A325ACD58B00AD50F1 /* APIRouter.swift in Sources */,
 				014EC1AB2563019F00AAE65E /* LoginVC.swift in Sources */,
 				0154A54A25A9531500E7E014 /* Colors.swift in Sources */,

@@ -15,8 +15,22 @@ import CodableFirebase
 
 
 class AddSongVC: UIViewController {
+
     
+    var currentPlayingURI: String = ""
     
+    lazy var configuration = SPTConfiguration(clientID: Constants.SpotifyClientID, redirectURL: Constants.spotifyRedirectURI)
+    
+    let accessToken = UserDefaults.standard.string(forKey: "access_token")
+    
+    lazy var connectionParams = SPTAppRemoteConnectionParams(accessToken: self.accessToken, defaultImageSize: CGSize(width: 0, height: 0), imageFormat: SPTAppRemoteConnectionParamsImageFormat.PNG)
+    
+    lazy var appRemote: SPTAppRemote = {
+        
+        let appRemote = SPTAppRemote(configuration: configuration, connectionParameters: connectionParams, logLevel: .debug)
+        appRemote.delegate = self
+       return appRemote
+    }()
     
     
     var sessionID: String = ""
@@ -82,10 +96,22 @@ class AddSongVC: UIViewController {
         navigationController?.navigationBar.isHidden = false
         navigationItem.titleView = searchBar
         searchBar.delegate = self
-        self.navigationItem.title = "Add songs to the queue"
         navigationItem.setHidesBackButton(true, animated: false)
         setupUI()
         setupTableView()
+        
+        // logic for if the current instance of the app is a host
+        if self.isHost {
+            
+            //will set currentPlayingURI
+            getCurrentPlaying()
+            self.appRemote.authorizeAndPlayURI(self.currentPlayingURI)
+            
+            
+            
+        }
+        
+        getCurrentPlaying()
         searchBar.showsCancelButton = true
     }
     
@@ -116,6 +142,23 @@ class AddSongVC: UIViewController {
             }
             
         }
+        
+    }
+    
+    func getCurrentPlaying() {
+        
+        APIRouter.shared.getCurrentlyPlaying(completion: { result in
+            switch result {
+            case .success(let currentPlayingResponse):
+                self.currentPlayingURI = currentPlayingResponse.item.uri
+                
+            case .failure(let error):
+                print(error)
+            }
+            
+            
+            
+        })
         
     }
     
@@ -271,3 +314,21 @@ extension AddSongVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 
+extension AddSongVC: SPTAppRemoteDelegate {
+    
+    
+    func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
+        print("connected")
+    }
+    
+    func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
+        print(error)
+    }
+    
+    func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
+        print(error)
+    }
+    
+    
+    
+}
