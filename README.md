@@ -8,13 +8,13 @@
 
 
 # Main Screen
-![main screen](main.png)
+![main screen](main.PNG)
 
 # Add song screen
-![add song](song.png)
+![add song](song.PNG)
 
 # Queue screen
-![queue screen](queue.png)
+![queue screen](queue.PNG)
 
 # Share unique code
-![share unique code](share.png)
+![share unique code](share.PNG)
