@@ -7,4 +7,14 @@
 ## Users can decide to either host their own session or join a session using a unique identifier given to each session
 
 
+# Main Screen
+![main screen](main.png)
 
+# Add song screen
+![add song](song.png)
+
+# Queue screen
+![queue screen](queue.png)
+
+# Share unique code
+![share unique code](share.png)
