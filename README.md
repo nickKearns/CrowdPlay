@@ -5,6 +5,7 @@
 # Usage
 ### The host has full control of playback while participants are limited on purpose to only adding to the queue
 ### Users can decide to either host their own session or join a session using a unique identifier given to each session
+### The user will be prompted to sign in using a Spotify account 
 
 # TestFlight
 ### [Here](https://testflight.apple.com/join/9ht8DJDx) is a link to download the app on TestFlight
