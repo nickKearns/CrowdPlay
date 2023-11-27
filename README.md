@@ -1,4 +1,4 @@
-# QShare (Used to be called CrowdPlay) 
+# QShare
 
 ## An iOS application to allow people to collaborate on a Spotify Queue
 
